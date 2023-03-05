@@ -1,4 +1,9 @@
-﻿
+﻿* {
+    margin-left:0.5%;
+    margin-right:0.5%;
+    padding: 0;
+}
+
 .carousel {
     position: relative;
     overflow-x: hidden;
@@ -18,7 +23,7 @@
 .carousel--item {
     display: inline-block;
     position: relative;
-    margin-left: 2%;
+    margin-left: 1%;
     width: 27%;
     height: 10%;
     border-radius: 20px;
@@ -99,7 +104,6 @@
 
 .fa-arrow-up {
     font-size: 20px;
-    
     color: #333;
     transition: transform 0.3s ease-out;
 }
@@ -107,4 +111,76 @@
     .fa-arrow-up:hover {
         transform: translateY(-10px);
     }
+
+.search {
+    display:flex;
+    justify-content:space-evenly;
+    justify-items:start;
+    background-color:aqua;
+}
+
+.filters {
+    width: 40%;
+    background-color: rebeccapurple;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    width: 30%;
+    background-color: saddlebrown;
+}
+
+.restaurantes {
+    width: 100%;
+    background-color: bisque;
+    display: flex;
+    justify-items: start;
+    justify-content:space-evenly;
+}
+
+.fadeTop {
+    opacity: 0;
+    transform: translate(0, 10vh);
+    transition: all 1s;
+}
+
+.visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+    .card img {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .card .content {
+        padding: 20px;
+    }
+
+    .card h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
 
