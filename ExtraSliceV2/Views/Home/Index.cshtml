@@ -66,7 +66,7 @@
         </div>
     </section>
 </div>
-<div class="search">
+<div class="search-filters">
     <div class="filters">
         <h1>Ordenar</h1>
         <form>
@@ -93,10 +93,12 @@
         </form>
 
     </div>
-    <div class="search-bar">
-        <input type="text" placeholder="Buscar...">
-        <button type="submit">Buscar</button>
-    </div>
+    <div class="search-container">
+  <form action="#">
+    <input type="text" placeholder="Buscar...">
+    <button type="submit">Buscar</button>
+  </form>
+</div>
 
 </div>
 <div class="restaurantes scroll-content fadeTop">
@@ -121,29 +123,22 @@
 
 
     <div class="card">
-        <img src="imagen.jpg" alt="Imagen de la card">
+        <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
         <div class="content">
-            <h3>Título de la card</h3>
+            <h3><a asp-controller="Home" asp-action="Restaurante">Mcdonald</a></h3>
             <p>Contenido de la card</p>
         </div>
     </div>
 
 
     <div class="card">
-        <img src="imagen.jpg" alt="Imagen de la card">
+        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
         <div class="content">
-            <h3>Título de la card</h3>
-            <p>Contenido de la card</p>
+            <h3>Domino's Pizza</h3>
+            <p>Italiana-Pizza</p>
         </div>
     </div>
 
-    <div class="card">
-        <img src="imagen.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Título de la card</h3>
-            <p>Contenido de la card</p>
-        </div>
-    </div>
 
 </div>
 
