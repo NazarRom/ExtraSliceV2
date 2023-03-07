@@ -1,40 +1,106 @@
 ﻿* {
-    margin-left:0.5%;
-    margin-right:0.5%;
+    margin: auto;
     padding: 0;
 }
 /* Estilos generales para el navbar */
-nav {
+.navbar {
+    width: 97%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    justify-content: center;
     padding: 20px;
-    background-color: #f2f2f2;
+    background-color: lightsalmon;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilos para el logo */
-.logo a {
-    font-size: 24px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #000;
+.logo {
+    width: 50%;
+    background-color: crimson;
+    text-align: center;
 }
+
+    .logo a {
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #000;
+    }
 
 /* Estilos para el botón de inicio de sesión */
-.login a {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 30px;
-    text-decoration: none;
+
+.login {
+    width: 50%;
+    background-color: chocolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-    /* Estilos para el botón de inicio de sesión al pasar el cursor por encima */
-    .login a:hover {
-        background-color: #3e8e41;
+.custom-btn {
+    width: 130px;
+    height: 40px;
+    padding: 10px 25px;
+    border: 2px solid #000;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+}
+
+
+.btn-11 {
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+    .btn-11:hover {
+        background: #000;
+        color: #fff;
     }
+
+    .btn-11:before {
+        position: absolute;
+        content: '';
+        display: inline-block;
+        top: -180px;
+        left: 0;
+        width: 30px;
+        height: 100%;
+        background-color: #fff;
+        animation: shiny-btn1 3s ease-in-out infinite;
+    }
+
+    .btn-11:active {
+        box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3), -4px -4px 6px 0 rgba(116, 125, 136, .2), inset -4px -4px 6px 0 rgba(255,255,255,.2), inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+    }
+
+
+@-webkit-keyframes shiny-btn1 {
+    0% {
+        -webkit-transform: scale(0) rotate(45deg);
+        opacity: 0;
+    }
+
+    80% {
+        -webkit-transform: scale(0) rotate(45deg);
+        opacity: 0.5;
+    }
+
+    81% {
+        -webkit-transform: scale(4) rotate(45deg);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(50) rotate(45deg);
+        opacity: 0;
+    }
+}
 
 
 .carousel {
@@ -131,6 +197,7 @@ nav {
     align-items: center;
     height: 200px;
     width: 100%;
+    background-color: brown;
     text-align: center;
     font-family: Raleway;
 }
@@ -146,10 +213,10 @@ nav {
     }
 
 .search-filters {
-    display:flex;
-    justify-content:space-evenly;
-    justify-items:start;
-    background-color:aqua;
+    display: flex;
+    justify-content: space-evenly;
+    justify-items: start;
+    background-color: aqua;
 }
 
 .filters {
@@ -164,7 +231,7 @@ nav {
     display: flex;
     justify-content: center;
     margin: 20px 0;
-    width:90%;
+    width: 90%;
 }
 
     /* Estilos para el formulario */
@@ -189,7 +256,7 @@ nav {
 
     /* Estilos para el botón */
     .search-container button[type="submit"] {
-        display:none;
+        display: none;
         background-color: #f2f2f2;
         border: none;
         color: #000;
@@ -210,7 +277,7 @@ nav {
     background-color: bisque;
     display: flex;
     justify-items: start;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
 }
 
 .fadeTop {
@@ -225,7 +292,7 @@ nav {
 }
 
 .card {
-    width:20%;
+    width: 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -233,33 +300,31 @@ nav {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
-    font-family:Raleway;
-    text-align:center;
+    font-family: Raleway;
+    text-align: center;
+    text-decoration: none;
 }
- 
+
     .card img {
         width: 90%;
-        margin-top:4%;
+        height: 9.375rem;
+        margin-top: 4%;
         border-radius: 10px 10px 10px 10px;
     }
 
-    .content {
-        
-        width:90%;
-    }
+.content {
+    width: 90%;
+}
 
-    .card h3 {
-        font-size: 24px;
-        /*background-color:aqua;*/
-        margin-bottom:1%
+.card h3 {
+    font-size: 24px;
+    /*background-color:aqua;*/
+    margin-bottom: 1%
+}
 
-    }
-
-    .card p {
-        font-size: 16px;
-        line-height: 1.5;
-   /*     background-color:cadetblue;*/
-        margin-bottom:10%;
-    }
-
-
+.card p {
+    font-size: 16px;
+    line-height: 1.5;
+    /*     background-color:cadetblue;*/
+    margin-bottom: 10%;
+}
