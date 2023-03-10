@@ -1,0 +1,30 @@
+﻿.fondoRestaurante {
+    width: 100%;
+    background-color: blue;
+    height: 400px;
+}
+.datosRestaurante {
+    width: 100%;
+    background-color: aquamarine;
+    display: flex;
+    align-items: start;
+}
+.restaurante {
+    width: 40%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    text-align:center;
+ 
+}
+.carrito {
+    width: 40%;
+    background-color:green;
+}
+
+.menu {
+    margin:auto;
+    padding:auto;
+    background-color:red;
+    width:50%;
+
+}
