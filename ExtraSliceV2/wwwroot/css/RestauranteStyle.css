@@ -7,18 +7,17 @@
     width: 100%;
     background-color: aquamarine;
     display: flex;
+    justify-content:space-evenly;
     align-items: start;
 }
 .restaurante {
+    height:13rem;
     width: 40%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     text-align:center;
+    padding-top:9%;
  
-}
-.carrito {
-    width: 40%;
-    background-color:green;
 }
 
 .menu {
