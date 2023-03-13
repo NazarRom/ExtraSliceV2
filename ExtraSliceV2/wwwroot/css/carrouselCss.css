@@ -4,14 +4,15 @@
 }
 /* Estilos generales para el navbar */
 .navbar {
-    width: 97%;
+    width: 90%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background-color: lightsalmon;
+    /*background-color: lightsalmon;*/
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 9px 9px 9px 9px;
 }
 
 /* Estilos para el logo */
@@ -32,7 +33,7 @@
 
 .logIn {
     width: 50%;
-    background-color: chocolate;
+    /*background-color: chocolate;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,27 +96,27 @@
 .carousel {
     position: relative;
     overflow-x: hidden;
-    background-color: blue;
-    width: 100%;
-    height: 450px;
+    /*background-color: blue;*/
+    width: 90%;
+    height: 350px;
 }
 
 .carousel__container {
     padding-left: 6%;
     width: 100%;
-    margin: 70px auto;
+    margin: 40px auto;
     white-space: nowrap;
-    background-color: red;
+   /* background-color: red;*/
 }
 
 .carousel--item {
     display: inline-block;
     position: relative;
-    margin-left: 1%;
+    margin-left: 2%;
     width: 27%;
     height: 10%;
     border-radius: 20px;
-    background-color: lightblue;
+    /*background-color: lightblue;*/
     overflow: hidden;
     cursor: pointer;
     transition: 350ms all;
@@ -184,9 +185,9 @@
     justify-content: center;
     justify-content: space-evenly;
     align-items: center;
-    height: 200px;
-    width: 100%;
-    background-color: brown;
+    height: 120px;
+    width: 90%;
+    /*background-color: brown;*/
     text-align: center;
     font-family: Raleway;
 }
@@ -205,15 +206,38 @@
     display: flex;
     justify-content: space-evenly;
     justify-items: start;
-    background-color: aqua;
+    /*background-color: aqua;*/
+    width: 90%;
 }
 
-.filters {
-    width: 40%;
-    background-color: rebeccapurple;
-    display: flex;
-    flex-direction: column;
+.menu-filters {
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
+
+.menu-filters label {
+  display: inline-block;
+  background-color: #eee;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.menu-filters label:hover {
+  background-color: #ccc;
+}
+
+.menu-filters input[type="checkbox"] {
+  display: none;
+}
+
+.menu-filters input[type="checkbox"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
+
 
 /* Estilos para el contenedor de la barra de búsqueda */
 .search-container {
@@ -245,7 +269,7 @@
 
     /* Estilos para el botón */
     .search-container button[type="submit"] {
-        display: none;
+       
         background-color: #f2f2f2;
         border: none;
         color: #000;
@@ -262,11 +286,11 @@
 
 
 .restaurantes {
-    width: 100%;
+    width: 90%;
     background-color: bisque;
     display: flex;
-    justify-items: start;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .fadeTop {
