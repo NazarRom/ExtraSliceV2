@@ -116,9 +116,9 @@
  
 </div>
 
-<div class="restaurantes scroll-content elemento">
+<div class="restaurantes elemento">
 
-    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
         <img src="https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_1600,h_500,d_es:cuisines:hamburguesas-7.jpg/v1/es/restaurants/35747.jpg" alt="Imagen de la card">
         <div class="content">
             <h3>Mcdonald</h3>
@@ -126,7 +126,7 @@
         </div>
     </a>
 
-    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
         <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
         <div class="content">
             <h3>Mcdonald</h3>
@@ -135,7 +135,7 @@
     </a>
 
 
-    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
         <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
         <div class="content">
             <h3>Mcdonald</h3>
@@ -143,28 +143,36 @@
         </div>
     </a>
 
-    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
         <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
         <div class="content">
             <h3>Domino's Pizza</h3>
             <p>Italiana-Pizza</p>
         </div>
     </a>
-    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
         <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
         <div class="content">
             <h3>Domino's Pizza</h3>
             <p>Italiana-Pizza</p>
         </div>
     </a>
-    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
         <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
         <div class="content">
             <h3>Domino's Pizza</h3>
             <p>Italiana-Pizza</p>
         </div>
     </a>
-    <a asp-controller="Carta" asp-action="Restaurante" class="card" asp-route-idrestaurante="1">
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow" asp-route-idrestaurante="1">
+        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
+        <div class="content">
+            <h3>Domino's Pizza</h3>
+            <p>Italiana-Pizza</p>
+        </div>
+    </a>
+
+    <a asp-controller="Carta" asp-action="Restaurante" class="card grow" asp-route-idrestaurante="1">
         <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
         <div class="content">
             <h3>Domino's Pizza</h3>
@@ -178,24 +186,7 @@
 
 @section Scripts {
     <script>
-        window.addEventListener('scroll', function () {
-            let elements = document.getElementsByClassName('scroll-content');
-            let screenSize = window.innerHeight;
-
-            for (var i = 0; i < elements.length; i++) {
-                var element = elements[i];
-
-                if (element.getBoundingClientRect().top < screenSize) {
-                    element.classList.add('visible');
-                } else {
-                    element.classList.remove('visible');
-                }
-
-            }
-        });
-
-
-
+   
         const rangeInput = document.getElementById('range-input');
         const rangeValue = document.getElementById('range-value');
 

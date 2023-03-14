@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ExtraSliceV2</title>
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/LogoExtraSlice.png")">
     <link rel="stylesheet" href="~/css/carrouselCss.css" />
     @RenderSection("Style", false)
 </head>
@@ -12,7 +13,7 @@
         <nav>
             <div class="navbar">
                 <div class="logo">
-                <a asp-controller="Carta" asp-action="Index">eXtraSlice</a>
+                <a asp-controller="Carta" asp-action="Index"><img src="~/LogoExtraSlice.png" /></a>
             </div>
                
                 <div class="logIn">
