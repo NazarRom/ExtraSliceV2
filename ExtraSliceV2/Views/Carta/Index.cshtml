@@ -80,90 +80,99 @@
         </div>
     </section>
 </div>
- <div class="filters">
-        <h1>Ordenar</h1>
+<div class="filters">
+
+    <div class="precios">
+        <h1>Rango de precios</h1>
+        <input type="range" id="range-input" min="0" max="100" step="1" value="50">
+        <span id="range-value">50</span>
+    </div>
+
+    <div class="menu-filters">
         <form method="post">
-            <div class="menu-filters">
-                <label>
-                    <input type="checkbox" name="filter" value="vegetarian"> Vegetariano
-                </label>
-                <label>
-                    <input type="checkbox" name="filter" value="vegan"> Vegano
-                </label>
-                <label>
-                    <input type="checkbox" name="filter" value="gluten-free"> Sin gluten
-                </label>
-                <label>
-                    <input type="checkbox" name="filter" value="spicy"> Picante
-                </label>
-           
+            <h1>Ordenar</h1>
+            <label>
+                <input type="checkbox" name="filter" value="vegetarian"> Vegetariano
+            </label>
+            <label>
+                <input type="checkbox" name="filter" value="vegan"> Vegano
+            </label>
+            <label>
+                <input type="checkbox" name="filter" value="gluten-free"> Sin gluten
+            </label>
+            <label>
+                <input type="checkbox" name="filter" value="spicy"> Picante
+            </label>
 
-            <h1>Rango de precios</h1>
-            <label for="range-input">Selecciona un valor:</label>
-            <input type="range" id="range-input" min="0" max="100" step="1" value="50">
-            <span id="range-value">50</span>
-            </div>
         </form>
-
     </div>
-    <div class="restaurantes scroll-content fadeTop">
 
-
-        <a asp-controller="Carta" asp-action="Restaurante" class="card">
-            <img src="https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_1600,h_500,d_es:cuisines:hamburguesas-7.jpg/v1/es/restaurants/35747.jpg" alt="Imagen de la card">
-            <div class="content">
-                <h3>Mcdonald</h3>
-                <p>Contenido de la card</p>
-            </div>
-        </a>
-
-        <a asp-controller="Carta" asp-action="Restaurante" class="card">
-            <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
-            <div class="content">
-                <h3>Mcdonald</h3>
-                <p>Contenido de la card</p>
-            </div>
-        </a>
-
-
-        <a asp-controller="Carta" asp-action="Restaurante" class="card">
-            <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
-            <div class="content">
-                <h3>Mcdonald</h3>
-                <p>Contenido de la card</p>
-            </div>
-        </a>
-
-        <a asp-controller="Carta" asp-action="Restaurante" class="card">
-            <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-            <div class="content">
-                <h3>Domino's Pizza</h3>
-                <p>Italiana-Pizza</p>
-            </div>
-        </a>
-        <a asp-controller="Carta" asp-action="Restaurante" class="card">
-            <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-            <div class="content">
-                <h3>Domino's Pizza</h3>
-                <p>Italiana-Pizza</p>
-            </div>
-        </a>
-        <a asp-controller="Carta" asp-action="Restaurante" class="card">
-            <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-            <div class="content">
-                <h3>Domino's Pizza</h3>
-                <p>Italiana-Pizza</p>
-            </div>
-        </a>
-        <a asp-controller="Carta" asp-action="Restaurante" class="card" asp-route-idrestaurante="1">
-            <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-            <div class="content">
-                <h3>Domino's Pizza</h3>
-                <p>Italiana-Pizza</p>
-            </div>
-        </a>
-
+    <div class="search-container">
+        <form action="#">
+            <input type="text" placeholder="Buscar...">
+            <button type="submit">Buscar</button>
+        </form>
     </div>
+ 
+</div>
+
+<div class="restaurantes scroll-content elemento">
+
+    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+        <img src="https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_1600,h_500,d_es:cuisines:hamburguesas-7.jpg/v1/es/restaurants/35747.jpg" alt="Imagen de la card">
+        <div class="content">
+            <h3>Mcdonald</h3>
+            <p>Contenido de la card</p>
+        </div>
+    </a>
+
+    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+        <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
+        <div class="content">
+            <h3>Mcdonald</h3>
+            <p>Contenido de la card</p>
+        </div>
+    </a>
+
+
+    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+        <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
+        <div class="content">
+            <h3>Mcdonald</h3>
+            <p>Contenido de la card</p>
+        </div>
+    </a>
+
+    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
+        <div class="content">
+            <h3>Domino's Pizza</h3>
+            <p>Italiana-Pizza</p>
+        </div>
+    </a>
+    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
+        <div class="content">
+            <h3>Domino's Pizza</h3>
+            <p>Italiana-Pizza</p>
+        </div>
+    </a>
+    <a asp-controller="Carta" asp-action="Restaurante" class="card">
+        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
+        <div class="content">
+            <h3>Domino's Pizza</h3>
+            <p>Italiana-Pizza</p>
+        </div>
+    </a>
+    <a asp-controller="Carta" asp-action="Restaurante" class="card" asp-route-idrestaurante="1">
+        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
+        <div class="content">
+            <h3>Domino's Pizza</h3>
+            <p>Italiana-Pizza</p>
+        </div>
+    </a>
+
+</div>
 
 
 
