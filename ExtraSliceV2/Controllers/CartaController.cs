@@ -9,7 +9,7 @@ namespace ExtraSliceV2.Controllers
             return View();
         }
 
-        public IActionResult Restaurante()
+        public IActionResult Restaurante(int? idresuatrante)
         {
             return View();
         }
