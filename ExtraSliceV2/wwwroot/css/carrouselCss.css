@@ -2,6 +2,20 @@
     margin: auto;
     padding: 0;
 }
+
+header {
+    margin-inline: auto;
+    width: 80vw;
+    position: fixed;
+    top: 0;
+    display: inline-block;
+    margin-block: 0;
+    left: 50%;
+    z-index: 10;
+    height: 100px;
+    transform: translateX(-50%);
+}
+
 /* Estilos generales para el navbar */
 .navbar {
     width: 90%;
@@ -12,10 +26,10 @@
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-gap: 10px;
-    padding: 20px;
     /*background-color: lightsalmon;*/
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 9px 9px 9px 9px;
+    background-color:white;
 }
 
 /* Estilos para el logo */
@@ -35,6 +49,7 @@
 
     .logo img {
         width:100%;
+        
     }
 
 /* Estilos para el botón de inicio de sesión */
