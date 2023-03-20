@@ -1,23 +1,27 @@
-﻿@section Style{
+﻿@model Restaurante
+@section Style{
     <link rel="stylesheet" href="~/css/RestauranteStyle.css" />
 }
-
-<div class="fondoRestaurante" style="background-image: url('https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_1600,h_500,d_es:cuisines:mexicana-8.jpg/v1/es/restaurants/56478.jpg')">
-</div>
-<div class="datosRestaurante">
-    <section class="restaurante">
-          <h1>Chicken Ranch Salad</h1>
-          <span>Mexicana Americana</span>
-          <span>Avenida de Portugal, 45, Móstoles, 28931</span>
-    <p>Contenido de la card</p>
-    </section>
-</div>
-<div class="menu">
-    <h1>Lista de alimentos</h1>
-    <div class="alimento">
-        <h2>titulo de la comida</h2>
-        <p>La mejor comida del mundo</p>
-        <p>Precio: dinero</p>
+@if (Model != null){
+<div class="fondoRestaurante">
+        <img src="~/images/@Model.Imagen" />
+            <div class="datosRestaurante">
+        <section class="restaurante">
+              <h1>@Model.Nombre_restaurante</h1>
+              <span>@Model.Id_categoria</span>
+              <span>@Model.Direccion</span>
+              <span>@Model.Telefono</span>
+        </section>
     </div>
-
 </div>
+    <div id="menu" class="menu"></div>
+}
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var idRest = @Model.IdRestaurante;
+            var request = "/Carta/_ListaProductos?idrestaurante=" + idRest;
+            $("#menu").load(request);
+        })
+    </script>
+  }

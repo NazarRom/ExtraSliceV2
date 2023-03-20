@@ -18,10 +18,10 @@ builder.Services.AddSession(options =>
 
 string connectionString = builder.Configuration.GetConnectionString("SqlExtra");
 //el repository
-builder.Services.AddTransient<RepositoryUsers>();
+builder.Services.AddTransient<RepositoryRestaurante>();
 //el context
-builder.Services.AddDbContext<UsersContext>
-    (options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<RestauranteContext>
+    (option => option.UseSqlServer(connectionString));
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

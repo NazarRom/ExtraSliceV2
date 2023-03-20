@@ -1,0 +1,10 @@
+﻿@model List<Producto>
+
+    @foreach(Producto pro in Model)
+    {          
+        <div class="alimento">
+            <h2>@pro.Nombre_producto</h2>
+            <p>@pro.Descripcion</p>
+            <p>@pro.Precio €</p>
+        </div>
+    }

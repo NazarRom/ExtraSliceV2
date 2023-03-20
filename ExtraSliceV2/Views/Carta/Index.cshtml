@@ -1,14 +1,13 @@
-﻿
+﻿@model List<Restaurante>
+
 <div class="icon-container">
     <i class="fa-arrow-up"><img src="~/images/sushi.png" /><br />Sushi</i>
     <i class="fas fa-arrow-up"><img src="~/images/taco.png" /><br />Mexicana</i>
-    <i class="fas fa-arrow-up"><img src="~/images/emparedado.png" /><br />Hamburguesas</i>
+    <i class="fas fa-arrow-up"><img src="~/images/emparedado.png" /><br />Americana</i>
     <i class="fas fa-arrow-up"><img src="~/images/postre.png" /><br />Postres</i>
-    <i class="fas fa-arrow-up"><img src="~/images/ramen.png" /><br />Japonesa</i>
     <i class="fas fa-arrow-up"><img src="~/images/porcion-de-pizza.png" /><br />Pizza</i>
     <i class="fas fa-arrow-up"><img src="~/images/espaguetis.jpg" /><br />Italiana</i>
-    <i class="fas fa-arrow-up"><img src="~/images/poke.jpg" /><br />Poké</i>
-    <i class="fas fa-arrow-up"><img src="~/images/hotdog.jpg" /><br />Americana</i>
+ 
 
 </div>
 <div>
@@ -117,69 +116,20 @@
 </div>
 
 <div class="restaurantes elemento">
+    @if (Model != null)
+    {
+        @foreach (Restaurante rest in Model)
+        {
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@rest.IdRestaurante" class="card grow">
+                <img src="~/images/@rest.Imagen" />
+                <div class="content">
+                    <h3>@rest.Nombre_restaurante</h3>
+                    <p>@rest.Direccion</p>
+                </div>
+            </a>
+        }
 
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
-        <img src="https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_1600,h_500,d_es:cuisines:hamburguesas-7.jpg/v1/es/restaurants/35747.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Mcdonald</h3>
-            <p>Contenido de la card</p>
-        </div>
-    </a>
-
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
-        <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
-        <div class="content">
-            <h3>Mcdonald</h3>
-            <p>Contenido de la card</p>
-        </div>
-    </a>
-
-
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
-        <img src="https://www.blogichef.com/wp-content/uploads/2013/01/mcdonalds-e1669393480286.webp" alt="Imagen de la card">
-        <div class="content">
-            <h3>Mcdonald</h3>
-            <p>Contenido de la card</p>
-        </div>
-    </a>
-
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
-        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Domino's Pizza</h3>
-            <p>Italiana-Pizza</p>
-        </div>
-    </a>
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
-        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Domino's Pizza</h3>
-            <p>Italiana-Pizza</p>
-        </div>
-    </a>
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow">
-        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Domino's Pizza</h3>
-            <p>Italiana-Pizza</p>
-        </div>
-    </a>
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow" asp-route-idrestaurante="1">
-        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Domino's Pizza</h3>
-            <p>Italiana-Pizza</p>
-        </div>
-    </a>
-
-    <a asp-controller="Carta" asp-action="Restaurante" class="card grow" asp-route-idrestaurante="1">
-        <img src="https://www.topfranquicias.es/img_noticias/Topfranquicias-%20Domino%C2%B4s%20Pizza-%20apertura-%20Cieza-638048805015717070.jpg" alt="Imagen de la card">
-        <div class="content">
-            <h3>Domino's Pizza</h3>
-            <p>Italiana-Pizza</p>
-        </div>
-    </a>
-
+    }
 </div>
 
 
