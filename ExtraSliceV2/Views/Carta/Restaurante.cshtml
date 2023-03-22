@@ -1,27 +1,81 @@
-﻿@model Restaurante
+﻿@inject IMemoryCache memoryCache;
+@using Microsoft.Extensions.Caching.Memory;
+@model RestauranteProductos
 @section Style{
     <link rel="stylesheet" href="~/css/RestauranteStyle.css" />
 }
-@if (Model != null){
-<div class="fondoRestaurante">
-        <img src="~/images/@Model.Imagen" />
-            <div class="datosRestaurante">
-        <section class="restaurante">
-              <h1>@Model.Nombre_restaurante</h1>
-              <span>@Model.Id_categoria</span>
-              <span>@Model.Direccion</span>
-              <span>@Model.Telefono</span>
-        </section>
+@{
+    List<int> idsProductos = Context.Session.GetObject<List<int>>("IdProductos");
+    List<Producto> favoritos = memoryCache.Get<List<Producto>>("FAVORITOS");
+}
+
+@if (favoritos != null)
+{
+    <h1>idsProductos favoritos Cache: @favoritos.Count</h1>
+}
+
+@if (Model != null)
+{
+    <div class="fondoRestaurante">
+        <img src="~/images/@Model.Restaurante.Imagen" />
+        <div class="datosRestaurante">
+            <section class="restaurante">
+                <h1>@Model.Restaurante.Nombre_restaurante</h1>
+                <span>@Model.Restaurante.Id_categoria</span>
+                <span>@Model.Restaurante</span>
+                <span>@Model.Restaurante</span>
+            </section>
+        </div>
     </div>
-</div>
-    <div id="menu" class="menu"></div>
+    <a asp-controller="Carta" asp-action="CarritoProductos">Carrito</a>
+    <br />
+    <a asp-controller="Carta" asp-action="Favoritos">Favoritos</a>
+    @if (idsProductos != null)
+    {
+        <h1>idsProductos en session: @idsProductos.Count</h1>
+    }
+    <div id="menu" class="menu">
+        @foreach (Producto pro in Model.Productos)
+        {
+            <div class="alimento">
+                <h2>@pro.Nombre_producto</h2>
+                <p>@pro.Descripcion</p>
+                <p>@pro.Precio €</p>
+                <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>
+                @if (idsProductos == null)
+                {
+                    @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
+                    <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
+                    
+                }
+                else
+                {
+                    if (idsProductos.Contains(pro.IdProducto))
+                    {
+                        <img src="https://w7.pngwing.com/pngs/405/55/png-transparent-checked-logo-check-mark-green-check-angle-leaf-triangle.png" style="width:40px; height: 40px" />
+                    }
+                    else
+                    {
+                        @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
+                         <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
+                    }
+
+                }
+
+            </div>
+
+        }
+    </div>
 }
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            var idRest = @Model.IdRestaurante;
-            var request = "/Carta/_ListaProductos?idrestaurante=" + idRest;
-            $("#menu").load(request);
-        })
+        //$(document).ready(function () {
+        //    $(".miBoton").click(function () {
+        //        var idProd = $(this).val();
+        //        console.log(idProd)
+        //        $.get("/Carta/Restaurante", { idrestaurante: @Model.Restaurante.IdRestaurante, idproducto: idProd });
+        //        window.location.reload();
+        //    });
+        //});
     </script>
   }
