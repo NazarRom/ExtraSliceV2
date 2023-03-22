@@ -21,7 +21,40 @@ namespace ExtraSliceV2.Controllers
             List<Restaurante> restaurantes = this.repo.GetRestaurantes();
             return View(restaurantes);
         }
-        public IActionResult Favoritos()
+        public IActionResult CarritoProductos(int? ideliminar)
+        {
+            //tenemos una coleccion de ids y necesitamos
+            //recuperamos los datos de session
+            List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
+
+            if (idsProductos == null)
+            {
+                ViewData["MENSAJE"] = "No hay productos";
+                return View();
+            }
+            else
+            {
+                if (ideliminar != null)
+                {
+                    //ELIMINAMOS EL ELEMENTO QUE NOS HAN SOLICITADO
+                    idsProductos.Remove(ideliminar.Value);
+                    if (idsProductos.Count == 0)
+                    {
+                        HttpContext.Session.Remove("IdProductos");
+                    }
+                    else
+                    {
+                        //DEBEMOS ACTUALIZAR DE NUEVO SESSION
+                        HttpContext.Session.SetObject("IdProductos", idsProductos);
+                    }
+                }
+
+                List<Producto> productosSession = this.repo.GetProductosSession(idsProductos);
+                return View(productosSession);
+
+            }
+        }
+        public IActionResult Favoritos(int? ideliminar)
         {
             List<Producto> productosFavoritos;
             if (this.memoryCache.Get("FAVORITOS") == null)
@@ -31,6 +64,25 @@ namespace ExtraSliceV2.Controllers
             else
             {
                 productosFavoritos = this.memoryCache.Get<List<Producto>>("FAVORITOS");
+                if (ideliminar != null)
+                {
+                    //ELIMINAMOS EL ELEMENTO QUE NOS HAN SOLICITADO
+                    Producto product = productosFavoritos.FirstOrDefault(p=>p.IdProducto == ideliminar);
+                    productosFavoritos.Remove(product);
+                    if (productosFavoritos.Count == 0)
+                    {
+                        this.memoryCache.Remove("FAVORITOS");
+                       
+                    }
+                    else
+                    {
+                        //DEBEMOS ACTUALIZAR DE NUEVO SESSION
+                        this.memoryCache.Set("FAVORITOS", productosFavoritos);
+                    }
+                    
+                }
+                
+
             }
             return View(productosFavoritos);
         }
@@ -82,39 +134,7 @@ namespace ExtraSliceV2.Controllers
         }
        
 
-        public IActionResult CarritoProductos(int? ideliminar)
-        {
-            //tenemos una coleccion de ids y necesitamos
-            //recuperamos los datos de session
-            List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
-
-            if(idsProductos == null)
-            {
-                ViewData["MENSAJE"] = "No hay productos";
-                return View();
-            }
-            else
-            {
-                if (ideliminar != null)
-                {
-                    //ELIMINAMOS EL ELEMENTO QUE NOS HAN SOLICITADO
-                    idsProductos.Remove(ideliminar.Value);
-                    if (idsProductos.Count == 0)
-                    {
-                        HttpContext.Session.Remove("IdProductos");
-                    }
-                    else
-                    {
-                        //DEBEMOS ACTUALIZAR DE NUEVO SESSION
-                        HttpContext.Session.SetObject("IdProductos", idsProductos);
-                    }
-                }
-
-                List<Producto> productosSession = this.repo.GetProductosSession(idsProductos);
-                return View(productosSession);
-
-            }
-        }
+       
 
        
     }
