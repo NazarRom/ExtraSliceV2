@@ -1,0 +1,19 @@
+﻿@if (Context.User.Identity.IsAuthenticated == false)
+{
+
+    <a asp-controller="Carta" asp-action="PerfilUsuario" class="custom-btn btn-14">
+        Hola
+    </a>
+
+}
+else
+{
+
+    <a  asp-controller="Manage" asp-action="LogOut" class="custom-btn btn-14">
+        Log Out
+        <span>@Context.User.Identity.Name</span>
+    </a>
+        <a asp-controller="Carta" asp-action="PerfilUsuario" class="custom-btn btn-14">
+            Mi Perfil
+        </a>
+}

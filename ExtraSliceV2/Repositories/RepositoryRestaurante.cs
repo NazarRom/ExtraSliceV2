@@ -1,4 +1,5 @@
 ﻿using ExtraSliceV2.Data;
+using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Models;
 
 namespace ExtraSliceV2.Repositories
@@ -55,21 +56,38 @@ namespace ExtraSliceV2.Repositories
             return this.context.Productos.FirstOrDefault(x => x.IdProducto == idproducto);
         }
 
-        //public RestauranteProductos RestProduct (int idrestaurante)
-        //{
-        //    var consultaRest = this.context.Restaurantes.FirstOrDefault(x => x.IdRestaurante == idrestaurante);
+         private int GetMaxIdusuario()
+        {
+            if (this.context.Usuarios.Count() == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return this.context.Usuarios.Max(z => z.IdUser) + 1; 
+            }
+        }
 
-        //    var consultaProd = from data in this.context.Productos
-        //                       where data.IdRestaurante == idrestaurante
-        //                       select data;
+        public async Task RegisterUser(string nombre, string direccion, string telefono, string email,  string pass)
+        {
+            Usuario user = new Usuario();
+            user.IdUser = this.GetMaxIdusuario();
+            user.Nombre_cliente = nombre;
+            user.Direccion = direccion;
+            user.Telefono = telefono;
+            user.Email = email;
+            user.Salt = HelperCryptograhy.GenerateSalt();
+            user.PasswordCifrado = HelperCryptograhy.EncryptPassword(pass, user.Salt);
+            user.Password = pass;
+            this.context.Usuarios.Add(user);
+            await this.context.SaveChangesAsync();
+        }
 
-        //    RestauranteProductos restauranteProductos = new RestauranteProductos
-        //    {
-        //        Restaurante = consultaRest,
-        //        Productos = consultaProd.ToList(),
 
-        //    };
-        //    return restauranteProductos;
-        //}
+        public async Task<Usuario> ExisteUsuario(string email, string password)
+        {
+            var consulta = this.context.Usuarios.Where(x => x.Email == email && x.Password == password);
+            return consulta.FirstOrDefault();
+        }
     }
 }

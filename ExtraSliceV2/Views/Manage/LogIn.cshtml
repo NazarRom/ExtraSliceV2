@@ -5,15 +5,16 @@
             <h4>Login</h4>
         </header>
         <form class="login-form" action="#" method="post">
-            <input type="text" class="login-input" placeholder="Email" required autofocus />
-            <input type="text" class="login-input" placeholder="Contraseña" required />
+            <input type="text" class="login-input" placeholder="Email" name="email" required autofocus />
+            <input type="text" class="login-input" placeholder="Contraseña" name="password" required />
             <div class="submit-container">
                 <button type="submit" class="login-button">SIGN IN</button>
             </div>
         </form>
     </section>
-    <a asp-controller="Login" asp-action="Register" class="login-button" style="text-decoration:none">Registrate si no tienes cuenta</a>
+    <a asp-controller="Carta" asp-action="Register" class="login-button" style="text-decoration:none">Registrate si no tienes cuenta</a>
 </div>
+ @ViewData["MENSAJE"] = "Usuario/Password incorrectos";
 @section Style{
     <link rel="stylesheet" href="~/css/LoginStyle.css" />
 }

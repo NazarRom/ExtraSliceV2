@@ -1,9 +1,17 @@
 using ExtraSliceV2.Data;
 using ExtraSliceV2.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+//seguridad
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
+}).AddCookie();
 // Add services to the container.
 
 
@@ -23,7 +31,7 @@ builder.Services.AddTransient<RepositoryRestaurante>();
 builder.Services.AddDbContext<RestauranteContext>
     (option => option.UseSqlServer(connectionString));
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => options.EnableEndpointRouting = false).AddSessionStateTempDataProvider();
 var app = builder.Build();
 
 
@@ -40,12 +48,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseResponseCaching();
 app.UseSession();
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Carta}/{action=Index}/{id?}");
-
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        name: "default",
+        template: "{controller=Carta}/{action=Index}/{id?}");
+});
 app.Run();

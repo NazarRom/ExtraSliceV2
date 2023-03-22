@@ -7,8 +7,8 @@ namespace ExtraSliceV2.Data
     {
         public RestauranteContext(DbContextOptions<RestauranteContext> options)
             : base(options) { }
-       //public DbSet<User> Users { get; set; }
-       public DbSet<Restaurante> Restaurantes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Restaurante> Restaurantes { get; set; }
        public DbSet<Producto> Productos { get; set; }
     }
 }

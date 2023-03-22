@@ -1,4 +1,5 @@
 ﻿using ExtraSliceV2.Extensions;
+using ExtraSliceV2.Filters;
 using ExtraSliceV2.Models;
 using ExtraSliceV2.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,18 @@ namespace ExtraSliceV2.Controllers
             this.memoryCache = memoryCache;
         }
 
+        [AuthorizeUsuarios]
+        public IActionResult PerfilUsuario()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             List<Restaurante> restaurantes = this.repo.GetRestaurantes();
             return View(restaurantes);
         }
+        [AuthorizeUsuarios]
         public IActionResult CarritoProductos(int? ideliminar)
         {
             //tenemos una coleccion de ids y necesitamos
@@ -54,6 +62,7 @@ namespace ExtraSliceV2.Controllers
 
             }
         }
+        [AuthorizeUsuarios]
         public IActionResult Favoritos(int? ideliminar)
         {
             List<Producto> productosFavoritos;
@@ -132,10 +141,18 @@ namespace ExtraSliceV2.Controllers
             };
             return View(restauranteProductos);
         }
-       
 
-       
+        public IActionResult Register()
+        {
+            return View();
+        }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> Register(Usuario usuario)
+        {
+           await this.repo.RegisterUser(usuario.Nombre_cliente, usuario.Direccion, usuario.Telefono, usuario.Email, usuario.Password);
+            return View();
+        }
+
     }
 }
