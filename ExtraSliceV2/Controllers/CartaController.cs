@@ -16,7 +16,7 @@ namespace ExtraSliceV2.Controllers
             this.repo = repo;
             this.memoryCache = memoryCache;
         }
-
+        //socorro
         [AuthorizeUsuarios]
         public IActionResult PerfilUsuario()
         {
