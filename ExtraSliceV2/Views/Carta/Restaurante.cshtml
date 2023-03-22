@@ -67,15 +67,17 @@
         }
     </div>
 }
-@section Scripts{
+@*@section Scripts{
     <script>
-        //$(document).ready(function () {
-        //    $(".miBoton").click(function () {
-        //        var idProd = $(this).val();
-        //        console.log(idProd)
-        //        $.get("/Carta/Restaurante", { idrestaurante: @Model.Restaurante.IdRestaurante, idproducto: idProd });
-        //        window.location.reload();
-        //    });
-        //});
+        $(document).ready(function () {
+            $(".miBoton").click(function () {
+                var idProd = $(this).val();
+                console.log(idProd)
+                $.get("/Carta/Restaurante", { idrestaurante: @Model.Restaurante.IdRestaurante, idproducto: idProd }, function(data) {
+                    data.prductoss.foreach(producto => { })
+                } );
+                window.location.reload();
+            });
+        });
     </script>
-  }
+  }*@
