@@ -111,9 +111,17 @@ namespace ExtraSliceV2.Controllers
                 }
                 //BUSCAMOS PRODUCTO EN BBDD PARA ALMACENARLO EN CACHE
                 Producto producto = this.repo.FindProducto(idfavorito.Value);
-                productoFavoritos.Add(producto);
-                //ALMACENAMOS LOS DATOS EN CACHE
-                this.memoryCache.Set("FAVORITOS", productoFavoritos);
+
+
+                Producto productFav = productoFavoritos.FirstOrDefault(p => p.IdProducto == idfavorito);
+
+                if(productFav == null)
+                {
+                    productoFavoritos.Add(producto);
+                    //ALMACENAMOS LOS DATOS EN CACHE
+                    this.memoryCache.Set("FAVORITOS", productoFavoritos);
+                }
+               
             }
 
 
