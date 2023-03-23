@@ -1,6 +1,7 @@
 ﻿using ExtraSliceV2.Data;
 using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Models;
+using Microsoft.Data.SqlClient;
 #region procedure
 //que pasa ahora
 //create procedure sp_insert_cliente
@@ -85,6 +86,7 @@ namespace ExtraSliceV2.Repositories
 
         public async Task RegisterUser(string nombre, string direccion, string telefono, string email,  string pass)
         {
+            
 
             Usuario user = new Usuario();
             user.IdUser = this.GetMaxIdusuario();
