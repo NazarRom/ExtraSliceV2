@@ -1,7 +1,21 @@
 ﻿using ExtraSliceV2.Data;
 using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Models;
-
+#region procedure
+//create procedure sp_insert_cliente
+//(@name nvarchar (50),
+//@dire nvarchar(50),
+//@tel int,
+//@user nvarchar(50),
+//@pass nvarchar(100),
+//@passcif varbinary(500),
+//@salt nvarchar(200))
+//as
+//declare @idmax int
+//select @idmax = MAX(id) +1  from clientes
+//insert into clientes values(@idmax, @name, @dire, @tel, @user, @passcif, @pass, @salt);
+//GO
+#endregion
 namespace ExtraSliceV2.Repositories
 {
     public class RepositoryRestaurante
