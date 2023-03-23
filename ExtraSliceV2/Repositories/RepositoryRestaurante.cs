@@ -2,7 +2,7 @@
 using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Models;
 #region procedure
-//que pasa
+//que pasa ahora
 //create procedure sp_insert_cliente
 //(@name nvarchar (50),
 //@dire nvarchar(50),
