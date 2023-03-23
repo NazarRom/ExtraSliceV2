@@ -24,7 +24,7 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
-string connectionString = builder.Configuration.GetConnectionString("SqlExtra");
+string connectionString = builder.Configuration.GetConnectionString("Azure");
 //el repository
 builder.Services.AddTransient<RepositoryRestaurante>();
 //el context

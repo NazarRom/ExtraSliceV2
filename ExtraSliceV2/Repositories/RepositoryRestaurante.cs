@@ -85,6 +85,7 @@ namespace ExtraSliceV2.Repositories
 
         public async Task RegisterUser(string nombre, string direccion, string telefono, string email,  string pass)
         {
+
             Usuario user = new Usuario();
             user.IdUser = this.GetMaxIdusuario();
             user.Nombre_cliente = nombre;
