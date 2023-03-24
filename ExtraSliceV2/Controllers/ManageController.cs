@@ -46,7 +46,6 @@ namespace ExtraSliceV2.Controllers
 
                 ClaimsPrincipal usePrincipal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, usePrincipal);
-                HttpContext.Session.SetString("Usuario", usuario.IdUser.ToString());
                 string controller = TempData["controller"].ToString();
                 string action = TempData["action"].ToString();
                 return RedirectToAction(action, controller);

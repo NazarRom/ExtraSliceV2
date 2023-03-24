@@ -1,6 +1,7 @@
-﻿@model List<Producto>
+﻿@using System.Security.Claims;
+@model List<Producto>
 @{
-    string Idsession = Context.Session.GetString("Usuario");
+    string IdUser = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
     List<int> idsProductos = Context.Session.GetObject<List<int>>("IdProductos");
 
     decimal total = 0;
@@ -54,7 +55,7 @@
     </table>*@
 
     <form method="post">
-        <input class="form-control" type="text" name="idcliente" value="@Idsession" />
+        <input class="form-control" type="text" name="idcliente" value="@IdUser" />
         @foreach (Producto pro in Model)
         {
 
@@ -78,7 +79,7 @@
 
 
     <h1 id="total">@total</h1>
-    <h2>ID Usuario session = @Idsession</h2>
+    <h2>ID Usuario session = @IdUser</h2>
 }
 @section Scripts{
     <script>
