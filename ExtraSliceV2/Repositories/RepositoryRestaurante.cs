@@ -150,11 +150,20 @@ namespace ExtraSliceV2.Repositories
      
         }
 
-        public async Task FinalizarPedido()
+        public async Task FinalizarPedido(int idcliente,List<int> idsproducto, List<int> cantidad)
         {
-            string sql = "sp_producto_pedidos @idproducto, @cantidad";
-            SqlParameter pamidproducto = new SqlParameter();
-            SqlParameter pamCantidad = new SqlParameter();
+            await this.CrearPedido(idcliente);
+          
+            for(var i = 0;i < idsproducto.Count(); i++)
+            {
+                int id = idsproducto[i];
+                int cant = cantidad[i];
+                string sql = "sp_producto_pedidos @idproducto, @cantidad";
+                SqlParameter pamidproducto = new SqlParameter("@idproducto", id);
+                SqlParameter pamCantidad = new SqlParameter("cantidad", cant);
+                await this.context.Database.ExecuteSqlRawAsync(sql, pamidproducto, pamCantidad);
+            }
+
 
         }
         //para buscar

@@ -65,6 +65,15 @@ namespace ExtraSliceV2.Controllers
 
             }
         }
+        [HttpPost]
+        [AuthorizeUsuarios]
+        public async Task<IActionResult> CarritoProductos(int idcliente, List<int> idproducto, List<int> cantidad)
+        {
+            
+            await this.repo.FinalizarPedido(idcliente, idproducto, cantidad);
+            HttpContext.Session.Remove("IdProductos");
+            return RedirectToAction("Index");
+        }
         [AuthorizeUsuarios]
         public IActionResult Favoritos(int? ideliminar)
         {

@@ -4,7 +4,7 @@
 @section Style{
     <link rel="stylesheet" href="~/css/RestauranteStyle.css" />
 }
-@{
+    @{
     List<int> idsProductos = Context.Session.GetObject<List<int>>("IdProductos");
     List<Producto> favoritos = memoryCache.Get<List<Producto>>("FAVORITOS");
 }
@@ -41,15 +41,15 @@
                 <p>@pro.Precio €</p>
 
                 <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>
-                <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto" asp-route-cantidad="3">Añadir cantidad</a>
+                @*<a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto" asp-route-cantidad="3">Añadir cantidad</a>*@
                @* <div>
-                    <button class="@pro.Nombre_producto">+</button>
-                    <span class="valor">0</span>
-                    <button class="disminuir">-</button>
+                    <button onclick="disminuirInput(@pro.IdProducto)"id="disminuir_@pro.IdProducto">-</button>
+                    <input id="valor_@pro.IdProducto" value="0"/>
+                    <button onclick="aumentarInput(@pro.IdProducto)" id="incrementar_@pro.IdProducto">+</button>
                 </div>*@
                 @if (idsProductos == null)
                 {
-                   @* <button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
+                    @* <button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
                     <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
 
                 }
@@ -85,19 +85,39 @@
             //    });
             //});
     </script>*@
-    @* <script>
-        $(document).ready(function () {
-            var valor = 0;
+    <script>
+        //$(document).ready(function () {
+        //    var valor = 0;
 
-            $(".incrementar").click(function () {
-                valor++;
-                $(".valor").text(valor);
-            });
+        //    $(".incrementar").click(function () {
+        //        valor++;
 
-            $(".disminuir").click(function () {
-                valor--;
-                $(".valor").text(valor);
-            });
-        });
-    </script>*@
+        //        $(".valor").text(valor);
+        //    });
+
+        //    $(".disminuir").click(function () {
+        //        valor--;
+        //        $(".valor").text(valor);
+        //    });
+        //});
+        //function aumentarInput(id) {
+        //    var idBoton = event.target.id;
+        //    var idInput = "valor_" + id;
+        //    var input = document.getElementById(idInput);
+        //    console.log(input);
+        //  input.value++;
+        //}
+        // function disminuirInput(id) {
+        //    var idBoton = event.target.id;
+        //    var idInput = "valor_" + id;
+        //    var input = document.getElementById(idInput);
+        //     console.log(input);
+        //     if (input.value <= 0) {
+        //         input.value = 0;
+        //     } else {
+        //         input.value--;
+        //     }
+            
+        //}
+    </script>
   }
