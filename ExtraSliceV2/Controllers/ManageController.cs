@@ -38,10 +38,10 @@ namespace ExtraSliceV2.Controllers
                 Claim claimDirect = new Claim("Direccion", usuario.Direccion.ToString());
                 identity.AddClaim(claimDirect);
 
-                Claim claimTelef = new Claim("Telefono", usuario.Telefono.ToString());
+                Claim claimTelef = new Claim(ClaimTypes.MobilePhone, usuario.Telefono.ToString());
                 identity.AddClaim(claimTelef);
 
-                Claim claimEmail = new Claim("Email", usuario.Email.ToString());
+                Claim claimEmail = new Claim(ClaimTypes.Email, usuario.Email.ToString());
                 identity.AddClaim(claimEmail);
 
                 ClaimsPrincipal usePrincipal = new ClaimsPrincipal(identity);

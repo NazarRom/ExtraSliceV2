@@ -1,10 +1,13 @@
 ﻿using ExtraSliceV2.Extensions;
 using ExtraSliceV2.Filters;
+using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Models;
 using ExtraSliceV2.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace ExtraSliceV2.Controllers
 {
@@ -12,11 +15,17 @@ namespace ExtraSliceV2.Controllers
     {
         private RepositoryRestaurante repo;
         private IMemoryCache memoryCache;
-        public CartaController(RepositoryRestaurante repo, IMemoryCache memoryCache)
+        private HelperMail helperMail;
+        public CartaController(RepositoryRestaurante repo, IMemoryCache memoryCache, HelperMail helperMail)
         {
             this.repo = repo;
             this.memoryCache = memoryCache;
+            this.helperMail = helperMail;
         }
+
+
+
+
         //miedo
         [AuthorizeUsuarios]
         public IActionResult PerfilUsuario()
@@ -24,11 +33,20 @@ namespace ExtraSliceV2.Controllers
             return View();
         }
 
+
+
+
         public IActionResult Index()
         {
             List<Restaurante> restaurantes = this.repo.GetRestaurantes();
             return View(restaurantes);
         }
+
+
+
+
+
+
         [AuthorizeUsuarios]
         public IActionResult CarritoProductos(int? ideliminar)
         {
@@ -65,15 +83,33 @@ namespace ExtraSliceV2.Controllers
 
             }
         }
+
+
+
+
         [HttpPost]
         [AuthorizeUsuarios]
         public async Task<IActionResult> CarritoProductos(int idcliente, List<int> idproducto, List<int> cantidad)
         {
-            
+            List<Producto> productosSession = this.repo.GetProductosSession(idproducto);
+            string productostring = JsonConvert.SerializeObject(productosSession);
+
+            List<int> prodCantidad = cantidad;
+            string prodCanString = JsonConvert.SerializeObject(prodCantidad);
+
+            string email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            await this.helperMail.SendMailAsync(email, productostring, prodCanString);
+
+
             await this.repo.FinalizarPedido(idcliente, idproducto, cantidad);
             HttpContext.Session.Remove("IdProductos");
             return RedirectToAction("Index");
         }
+
+
+
+
+
         [AuthorizeUsuarios]
         public IActionResult Favoritos(int? ideliminar)
         {
@@ -107,6 +143,11 @@ namespace ExtraSliceV2.Controllers
             }
             return View(productosFavoritos);
         }
+
+
+
+
+
 
         public IActionResult Restaurante(int idrestaurante, int? idproducto, int? idfavorito)
         {
@@ -162,6 +203,12 @@ namespace ExtraSliceV2.Controllers
             return View(restauranteProductos);
         }
 
+
+
+
+
+
+
         public IActionResult Register()
         {
             return View();
@@ -174,18 +221,18 @@ namespace ExtraSliceV2.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CrearPedido(int iduser)
-        {
-            List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
-            UsuarioPedido usuarioPedido = new UsuarioPedido
-            {
-                ListaPedido = this.repo.GetProductosSession(idsProductos),
-                UserPedido = this.repo.FindUsuario(iduser)
-            };
-            await this.repo.CrearPedido(iduser);
+        //public async Task<IActionResult> CrearPedido(int iduser)
+        //{
+        //    List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
+        //    UsuarioPedido usuarioPedido = new UsuarioPedido
+        //    {
+        //        ListaPedido = this.repo.GetProductosSession(idsProductos),
+        //        UserPedido = this.repo.FindUsuario(iduser)
+        //    };
+        //    await this.repo.CrearPedido(iduser);
            
-            return View(usuarioPedido);
-        }
+        //    return View(usuarioPedido);
+        //}
 
         public async Task<IActionResult> CancelarPedido()
         {

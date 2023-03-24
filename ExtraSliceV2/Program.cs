@@ -1,4 +1,5 @@
 using ExtraSliceV2.Data;
+using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,8 @@ builder.Services.AddSession(options =>
 string connectionString = builder.Configuration.GetConnectionString("Azure");
 //el repository
 builder.Services.AddTransient<RepositoryRestaurante>();
+    //helper
+builder.Services.AddSingleton<HelperMail>();
 //el context
 builder.Services.AddDbContext<RestauranteContext>
     (option => option.UseSqlServer(connectionString));

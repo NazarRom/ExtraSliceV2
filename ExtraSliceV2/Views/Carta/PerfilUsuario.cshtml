@@ -5,7 +5,7 @@
 <h1>Perfil Doctor: @Context.User.Identity.Name</h1>
 <ul class="list-group">
     <li class="list-group-item">
-        Email: @Context.User.FindFirst("Email")
+        Email: @Context.User.FindFirstValue(ClaimTypes.Email)
     </li>
     <li class="list-group-item">
         Salario: @Context.User.FindFirstValue("Direccion")

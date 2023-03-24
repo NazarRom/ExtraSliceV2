@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using ExtraSliceV2.Models;
+using Newtonsoft.Json;
+using System.Net;
 using System.Net.Mail;
 
 namespace ExtraSliceV2.Helpers
@@ -12,14 +14,44 @@ namespace ExtraSliceV2.Helpers
         }
 
         private MailMessage ConfigureMailMessege
-            (string para, string asunto, string mensaje)
+            (string para, string productos, string cantidad)
         {
+            List<Producto> prods = JsonConvert.DeserializeObject<List<Producto>>(productos);
+            List<int> cants = JsonConvert.DeserializeObject<List<int>>(cantidad);
+            string tablaHtml = "<table>";
+            tablaHtml += "<th>Producto</th>";
+            tablaHtml += "<th>Descripción</th>";
+            tablaHtml += "<th>Precio</th>";
+            tablaHtml += "<th>Cantidad</th>";
+            tablaHtml += "<th>Total</th>";
+            decimal total = 0;
+            foreach (Producto pro in prods)
+            {
+                total += pro.Precio;
+            }
+            for (var i = 0;i < prods.Count();i++)
+            {
+                Producto prod = prods[i];
+                int cant = cants[i];
+                
+                tablaHtml += "<tr>";
+                tablaHtml += "<td>" + prod.Nombre_producto + "</td>";
+                tablaHtml += "<td>" + prod.Descripcion + "</td>";
+                tablaHtml += "<td>" + prod.Precio+ "€" +  "</td>";
+                tablaHtml += "<td>" + cant + "</td>";
+                total += prod.Precio * (cant-1);
+
+            }
+            tablaHtml += "<td>" + total + "€" + "</td>";
+            tablaHtml += "</tr>";
+            tablaHtml += "</table>";
+
             MailMessage mailMessage = new MailMessage();
             string email = this.configuration.GetValue<string>("MailSettings:Credentials:User");
             mailMessage.From = new MailAddress(email);
             mailMessage.To.Add(new MailAddress(para));
-            mailMessage.Subject = asunto;
-            mailMessage.Body = mensaje;
+            mailMessage.Subject = "Datos del pedido";
+            mailMessage.Body = tablaHtml;
             mailMessage.IsBodyHtml = true;
             return mailMessage;
         }
@@ -43,14 +75,14 @@ namespace ExtraSliceV2.Helpers
             return client;
         }
 
-        public async Task SendMailAsync(string para, string asunto, string mensaje)
+        public async Task SendMailAsync(string para, string productos, string cantidad)
         {
-            MailMessage mail = this.ConfigureMailMessege(para, asunto, mensaje);
+            MailMessage mail = this.ConfigureMailMessege(para, productos, cantidad);
             SmtpClient client = this.ConfigureSmtpClient();
             await client.SendMailAsync(mail);
         }
 
 
-       
+
     }
 }
