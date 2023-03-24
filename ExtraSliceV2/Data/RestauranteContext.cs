@@ -9,6 +9,8 @@ namespace ExtraSliceV2.Data
             : base(options) { }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Restaurante> Restaurantes { get; set; }
-       public DbSet<Producto> Productos { get; set; }
+        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<ProductosPedidos> ProductosPedidos { get; set; }
     }
 }

@@ -2,6 +2,9 @@
 using ExtraSliceV2.Helpers;
 using ExtraSliceV2.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Runtime.CompilerServices;
 #region procedure
 //que pasa ahora
 //create procedure sp_insert_cliente
@@ -17,6 +20,29 @@ using Microsoft.Data.SqlClient;
 //select @idmax = MAX(id) +1  from clientes
 //insert into clientes values(@idmax, @name, @dire, @tel, @user, @passcif, @pass, @salt);
 //GO
+
+//create procedure sp_pedido_clientes
+//(@fechahora datetime, @idcliente int)
+//as
+//declare @idmax int
+//select @idmax = MAX(id) +1  from pedidos
+//insert into pedidos values(@idmax, @fechahora, @idcliente)
+//go
+
+//create procedure sp_pedido_clientes
+//(@fechahora datetime, @idcliente int)
+//as
+//declare @idmax int
+//select @idmax = MAX(id) +1  from pedidos
+//insert into pedidos values(@idmax, @fechahora, @idcliente)
+//go
+
+//create procedure sp_delete_last
+//as
+//declare @idmax int
+//select @idmax = MAX(id) from pedidos
+//delete from pedidos where id = @idmax
+//go
 #endregion
 namespace ExtraSliceV2.Repositories
 {
@@ -72,7 +98,7 @@ namespace ExtraSliceV2.Repositories
             return this.context.Productos.FirstOrDefault(x => x.IdProducto == idproducto);
         }
 
-         private int GetMaxIdusuario()
+        private int GetMaxIdusuario()
         {
             if (this.context.Usuarios.Count() == 0)
             {
@@ -80,13 +106,13 @@ namespace ExtraSliceV2.Repositories
             }
             else
             {
-                return this.context.Usuarios.Max(z => z.IdUser) + 1; 
+                return this.context.Usuarios.Max(z => z.IdUser) + 1;
             }
         }
 
-        public async Task RegisterUser(string nombre, string direccion, string telefono, string email,  string pass)
+        public async Task RegisterUser(string nombre, string direccion, string telefono, string email, string pass)
         {
-            
+
 
             Usuario user = new Usuario();
             user.IdUser = this.GetMaxIdusuario();
@@ -106,6 +132,40 @@ namespace ExtraSliceV2.Repositories
         {
             var consulta = this.context.Usuarios.Where(x => x.Email == email && x.Password == password);
             return consulta.FirstOrDefault();
+        }
+
+        public Usuario FindUsuario(int iduser)
+        {
+            return this.context.Usuarios.FirstOrDefault(x => x.IdUser == iduser);
+        }
+
+        //crearPedido
+        public async Task CrearPedido(int idcliente)
+        {
+            string sql = "sp_pedido_clientes @fechahora, @idcliente";
+            DateTime fecha = DateTime.Today;
+            SqlParameter pamfecha = new SqlParameter("@fechahora", fecha);
+            SqlParameter pamidcliente = new SqlParameter("@idcliente", idcliente);
+            await this.context.Database.ExecuteSqlRawAsync(sql, pamfecha, pamidcliente);
+     
+        }
+
+        public async Task FinalizarPedido()
+        {
+            string sql = "sp_producto_pedidos @idproducto, @cantidad";
+            SqlParameter pamidproducto = new SqlParameter();
+            SqlParameter pamCantidad = new SqlParameter();
+
+        }
+        //para buscar
+
+     
+        //eliminar pedido
+        public async Task CancelarPedido()
+        {
+            string sql = "sp_delete_last";
+            await this.context.Database.ExecuteSqlRawAsync(sql);
+
         }
     }
 }

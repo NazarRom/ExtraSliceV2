@@ -1,4 +1,5 @@
-﻿using ExtraSliceV2.Models;
+﻿using ExtraSliceV2.Extensions;
+using ExtraSliceV2.Models;
 using ExtraSliceV2.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -45,7 +46,7 @@ namespace ExtraSliceV2.Controllers
 
                 ClaimsPrincipal usePrincipal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, usePrincipal);
-
+                HttpContext.Session.SetString("Usuario", usuario.IdUser.ToString());
                 string controller = TempData["controller"].ToString();
                 string action = TempData["action"].ToString();
                 return RedirectToAction(action, controller);
@@ -61,6 +62,7 @@ namespace ExtraSliceV2.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Remove("IdProductos");
             return RedirectToAction("Index", "Carta");
         }
     }

@@ -4,6 +4,7 @@ using ExtraSliceV2.Models;
 using ExtraSliceV2.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
 
 namespace ExtraSliceV2.Controllers
 {
@@ -33,6 +34,8 @@ namespace ExtraSliceV2.Controllers
         {
             //tenemos una coleccion de ids y necesitamos
             //recuperamos los datos de session
+
+            //cambiar el int por modelo de cantidad y el id y así guardarlo
             List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
 
             if (idsProductos == null)
@@ -76,21 +79,21 @@ namespace ExtraSliceV2.Controllers
                 if (ideliminar != null)
                 {
                     //ELIMINAMOS EL ELEMENTO QUE NOS HAN SOLICITADO
-                    Producto product = productosFavoritos.FirstOrDefault(p=>p.IdProducto == ideliminar);
+                    Producto product = productosFavoritos.FirstOrDefault(p => p.IdProducto == ideliminar);
                     productosFavoritos.Remove(product);
                     if (productosFavoritos.Count == 0)
                     {
                         this.memoryCache.Remove("FAVORITOS");
-                       
+
                     }
                     else
                     {
                         //DEBEMOS ACTUALIZAR DE NUEVO SESSION
                         this.memoryCache.Set("FAVORITOS", productosFavoritos);
                     }
-                    
+
                 }
-                
+
 
             }
             return View(productosFavoritos);
@@ -115,13 +118,13 @@ namespace ExtraSliceV2.Controllers
 
                 Producto productFav = productoFavoritos.FirstOrDefault(p => p.IdProducto == idfavorito);
 
-                if(productFav == null)
+                if (productFav == null)
                 {
                     productoFavoritos.Add(producto);
                     //ALMACENAMOS LOS DATOS EN CACHE
                     this.memoryCache.Set("FAVORITOS", productoFavoritos);
                 }
-               
+
             }
 
 
@@ -158,9 +161,40 @@ namespace ExtraSliceV2.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(Usuario usuario)
         {
-           await this.repo.RegisterUser(usuario.Nombre_cliente, usuario.Direccion, usuario.Telefono, usuario.Email, usuario.Password);
+            await this.repo.RegisterUser(usuario.Nombre_cliente, usuario.Direccion, usuario.Telefono, usuario.Email, usuario.Password);
             return View();
         }
+
+        public async Task<IActionResult> CrearPedido(int iduser)
+        {
+            List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
+            UsuarioPedido usuarioPedido = new UsuarioPedido
+            {
+                ListaPedido = this.repo.GetProductosSession(idsProductos),
+                UserPedido = this.repo.FindUsuario(iduser)
+            };
+            await this.repo.CrearPedido(iduser);
+           
+            return View(usuarioPedido);
+        }
+
+        public async Task<IActionResult> CancelarPedido()
+        {
+          await this.repo.CancelarPedido();
+            return RedirectToAction("CarritoProductos");
+        }
+
+        //public async Task<IActionResult> FinalizarPedidoProductos(int idcliente)
+        //{
+        //    List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
+        //    int cantidad = idsProductos.Count();
+
+        //    await this.repo.RealizarPedido(idcliente, idsProductos, cantidad);
+
+
+        //    HttpContext.Session.Remove("IdProductos");
+        //    return RedirectToAction("Index");
+        //}
 
     }
 }

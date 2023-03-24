@@ -1,4 +1,7 @@
 ﻿@using System.Security.Claims;
+@{
+    string Idsession = Context.Session.GetString("Usuario");
+}<h2>ID Usuario session = @Idsession</h2>
 <h1>Perfil Doctor: @Context.User.Identity.Name</h1>
 <ul class="list-group">
     <li class="list-group-item">

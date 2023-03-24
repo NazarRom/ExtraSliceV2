@@ -1,8 +1,19 @@
 ﻿@model List<Producto>
+@{
+    string Idsession = Context.Session.GetString("Usuario"); 
+    List<int> idsProductos = Context.Session.GetObject<List<int>>("IdProductos");
+    
+    decimal total = 0;
+    @if(Model != null)
+    {
+        foreach (Producto pro in Model)
+        {
+            total += pro.Precio;
+        }
+    }
+  
 
-<h1 style="background-color: lightyellow">
-    Empleados Almacenados Session OK
-</h1>
+}
 
 
 @if (Context.Session.GetObject<List<int>>("IdProductos") == null)
@@ -11,11 +22,12 @@
 }
 @if (Model != null)
 {
-    <table class="table table-bordered">
+    <table class="table table-info">
         <thead>
             <tr>
-                <th>Apellido</th>
-                <th>Oficio</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+
                 
             </tr>
         </thead>
@@ -31,6 +43,9 @@
             }
         </tbody>
     </table>
+    <h1> Total @total</h1>
+    <h2>ID Usuario session = @Idsession</h2>
+    <a asp-controller="Carta" asp-action="CrearPedido" asp-route-iduser="@Idsession">Crear Pedido </a>
 }
 @section Scripts{
  <script>

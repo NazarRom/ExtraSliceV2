@@ -27,9 +27,7 @@
             </section>
         </div>
     </div>
-    <a asp-controller="Carta" asp-action="CarritoProductos">Carrito</a>
-    <br />
-    <a asp-controller="Carta" asp-action="Favoritos">Favoritos</a>
+
     @if (idsProductos != null)
     {
         <h1>idsProductos en session: @idsProductos.Count</h1>
@@ -41,12 +39,19 @@
                 <h2>@pro.Nombre_producto</h2>
                 <p>@pro.Descripcion</p>
                 <p>@pro.Precio €</p>
+
                 <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>
+                <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto" asp-route-cantidad="3">Añadir cantidad</a>
+               @* <div>
+                    <button class="@pro.Nombre_producto">+</button>
+                    <span class="valor">0</span>
+                    <button class="disminuir">-</button>
+                </div>*@
                 @if (idsProductos == null)
                 {
-                    @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
+                   @* <button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
                     <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
-                    
+
                 }
                 else
                 {
@@ -57,7 +62,7 @@
                     else
                     {
                         @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
-                         <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
+                        <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
                     }
 
                 }
@@ -67,17 +72,32 @@
         }
     </div>
 }
-@*@section Scripts{
-    <script>
+@section Scripts{
+    @*    <script>
+        //$(document).ready(function () {
+            //    $(".miBoton").click(function () {
+            //        var idProd = $(this).val();
+            //        console.log(idProd)
+            //        $.get("/Carta/Restaurante", { idrestaurante: @Model.Restaurante.IdRestaurante, idproducto: idProd }, function(data) {
+            //            data.prductoss.foreach(producto => { })
+            //        } );
+            //        window.location.reload();
+            //    });
+            //});
+    </script>*@
+    @* <script>
         $(document).ready(function () {
-            $(".miBoton").click(function () {
-                var idProd = $(this).val();
-                console.log(idProd)
-                $.get("/Carta/Restaurante", { idrestaurante: @Model.Restaurante.IdRestaurante, idproducto: idProd }, function(data) {
-                    data.prductoss.foreach(producto => { })
-                } );
-                window.location.reload();
+            var valor = 0;
+
+            $(".incrementar").click(function () {
+                valor++;
+                $(".valor").text(valor);
+            });
+
+            $(".disminuir").click(function () {
+                valor--;
+                $(".valor").text(valor);
             });
         });
-    </script>
-  }*@
+    </script>*@
+  }

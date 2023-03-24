@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - ExtraSliceV2</title>
     <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/LogoExtraSlice.png")">
     <link rel="stylesheet" href="~/css/carrouselCss.css" />
+    <link rel="stylesheet" href="~/css/sweetalert2.min.css" />
     @RenderSection("Style", false)
 </head>
 <body>
@@ -19,7 +20,9 @@
                 <div class="logIn">
                    <partial name="_MenuUsuario" />         
             </div>
-           
+                <a asp-controller="Carta" asp-action="CarritoProductos">Carrito</a>
+                <br />
+                <a asp-controller="Carta" asp-action="Favoritos">Favoritos</a>
         </nav>      
     </header>
 
@@ -41,6 +44,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/jquery-3.6.1.min.js"></script>
+    <script src="~/js/sweetalert2.all.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
