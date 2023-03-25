@@ -5,15 +5,12 @@
 
 nav {
     margin-inline: auto;
-    width: 90vw;
-    position: fixed;
+    width: 100%;
     top: 0;
     display: inline-block;
     margin-block: 0;
     left: 50%;
-    z-index: 10;
     height: 100px;
-    transform: translateX(-50%);
 }
 
 /* Estilos generales para el navbar */

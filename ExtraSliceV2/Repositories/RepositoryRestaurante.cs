@@ -4,7 +4,6 @@ using ExtraSliceV2.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Runtime.CompilerServices;
 #region procedure
 //que pasa ahora
 //create procedure sp_insert_cliente
@@ -43,6 +42,18 @@ using System.Runtime.CompilerServices;
 //select @idmax = MAX(id) from pedidos
 //delete from pedidos where id = @idmax
 //go
+
+//CREATE PROCEDURE sp_filtro_dinero
+//    @dinero INT
+//AS
+//BEGIN
+//    SELECT DISTINCT r.id, r.nombre_restaurante, r.direccion, r.telefono , r.id_categoria, r.imagen
+//    FROM productos p
+//    INNER JOIN restaurantes r ON p.id_restaurante = r.id
+//    WHERE p.precio <= @dinero
+//END
+
+
 #endregion
 namespace ExtraSliceV2.Repositories
 {
@@ -147,14 +158,14 @@ namespace ExtraSliceV2.Repositories
             SqlParameter pamfecha = new SqlParameter("@fechahora", fecha);
             SqlParameter pamidcliente = new SqlParameter("@idcliente", idcliente);
             await this.context.Database.ExecuteSqlRawAsync(sql, pamfecha, pamidcliente);
-     
+
         }
 
-        public async Task FinalizarPedido(int idcliente,List<int> idsproducto, List<int> cantidad)
+        public async Task FinalizarPedido(int idcliente, List<int> idsproducto, List<int> cantidad)
         {
             await this.CrearPedido(idcliente);
-          
-            for(var i = 0;i < idsproducto.Count(); i++)
+
+            for (var i = 0; i < idsproducto.Count(); i++)
             {
                 int id = idsproducto[i];
                 int cant = cantidad[i];
@@ -166,15 +177,38 @@ namespace ExtraSliceV2.Repositories
 
 
         }
-        //para buscar
 
-     
         //eliminar pedido
         public async Task CancelarPedido()
         {
             string sql = "sp_delete_last";
             await this.context.Database.ExecuteSqlRawAsync(sql);
 
+        }
+
+        /*///////////////////////////////////////////////CATEGORIAS//////////*/
+        public List<Categoria> GetAllCategorias()
+        {
+            return this.context.Categorias.ToList();
+        }
+
+
+
+        //VISTAS PARCIALES///////////////////////////////////////////////
+        public List<Restaurante> FindRestauranteOnCategoria(int idcategoria)
+        {
+            var consulta = from data in this.context.Restaurantes
+                           where data.Id_categoria == idcategoria
+                           select data;
+            return consulta.ToList();
+        }
+
+        public List<Restaurante> GetRestaurantesByDinero(int cantidad)
+        {
+            string sql = "sp_filtro_dinero @dinero";
+            SqlParameter pamdinero = new SqlParameter("@dinero", cantidad);
+            var consulta = this.context.Restaurantes.FromSqlRaw(sql, pamdinero);
+            return consulta.ToList();
         }
     }
 }

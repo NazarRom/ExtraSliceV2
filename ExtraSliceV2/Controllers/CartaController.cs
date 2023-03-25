@@ -22,10 +22,6 @@ namespace ExtraSliceV2.Controllers
             this.memoryCache = memoryCache;
             this.helperMail = helperMail;
         }
-
-
-
-
         //miedo
         [AuthorizeUsuarios]
         public IActionResult PerfilUsuario()
@@ -34,17 +30,33 @@ namespace ExtraSliceV2.Controllers
         }
 
 
-
-
         public IActionResult Index()
         {
+            List<Categoria> categorias = this.repo.GetAllCategorias();
+            return View(categorias);
+        }
+     
+        ////////////////////////////////////////////////////////////////Vistas Partiales RESTAURANTES
+
+        public IActionResult _RestaurantesPartial()
+        {
             List<Restaurante> restaurantes = this.repo.GetRestaurantes();
-            return View(restaurantes);
+            return PartialView("_RestaurantesPartial", restaurantes);
         }
 
 
+        public IActionResult _ResaturanteOnCategoria(int idcategoria)
+        {
+            List<Restaurante> restaurantes = this.repo.FindRestauranteOnCategoria(idcategoria);
+            return PartialView("_ResaturanteOnCategoria", restaurantes);
+        }
 
-
+        public IActionResult _RestaurantesByDinero(int dinero)
+        {
+            List<Restaurante> restaurantes = this.repo.GetRestaurantesByDinero(dinero);
+            return PartialView("_ResaturanteOnCategoria", restaurantes);
+        }
+        /////////////////////////////////////////////////////////////////////////////
 
 
         [AuthorizeUsuarios]
@@ -84,9 +96,6 @@ namespace ExtraSliceV2.Controllers
             }
         }
 
-
-
-
         [HttpPost]
         [AuthorizeUsuarios]
         public async Task<IActionResult> CarritoProductos(int idcliente, List<int> idproducto, List<int> cantidad)
@@ -105,9 +114,6 @@ namespace ExtraSliceV2.Controllers
             HttpContext.Session.Remove("IdProductos");
             return RedirectToAction("Index");
         }
-
-
-
 
 
         [AuthorizeUsuarios]
@@ -143,10 +149,6 @@ namespace ExtraSliceV2.Controllers
             }
             return View(productosFavoritos);
         }
-
-
-
-
 
 
         public IActionResult Restaurante(int idrestaurante, int? idproducto, int? idfavorito)
@@ -204,11 +206,6 @@ namespace ExtraSliceV2.Controllers
         }
 
 
-
-
-
-
-
         public IActionResult Register()
         {
             return View();
@@ -221,18 +218,6 @@ namespace ExtraSliceV2.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> CrearPedido(int iduser)
-        //{
-        //    List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
-        //    UsuarioPedido usuarioPedido = new UsuarioPedido
-        //    {
-        //        ListaPedido = this.repo.GetProductosSession(idsProductos),
-        //        UserPedido = this.repo.FindUsuario(iduser)
-        //    };
-        //    await this.repo.CrearPedido(iduser);
-           
-        //    return View(usuarioPedido);
-        //}
 
         public async Task<IActionResult> CancelarPedido()
         {
@@ -240,17 +225,7 @@ namespace ExtraSliceV2.Controllers
             return RedirectToAction("CarritoProductos");
         }
 
-        //public async Task<IActionResult> FinalizarPedidoProductos(int idcliente)
-        //{
-        //    List<int> idsProductos = HttpContext.Session.GetObject<List<int>>("IdProductos");
-        //    int cantidad = idsProductos.Count();
-
-        //    await this.repo.RealizarPedido(idcliente, idsProductos, cantidad);
-
-
-        //    HttpContext.Session.Remove("IdProductos");
-        //    return RedirectToAction("Index");
-        //}
+       
 
     }
 }
