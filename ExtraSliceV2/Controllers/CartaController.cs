@@ -8,6 +8,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ExtraSliceV2.Controllers
 {
@@ -56,6 +57,20 @@ namespace ExtraSliceV2.Controllers
             List<Restaurante> restaurantes = this.repo.GetRestaurantesByDinero(dinero);
             return PartialView("_ResaturanteOnCategoria", restaurantes);
         }
+        
+        public IActionResult _RestauranteByName(string name)
+        {
+            List<Restaurante> restaurantes = this.repo.GetRestaurantes();
+            //var result = restaurantes.Where(r => r.Nombre_restaurante.Contains(name)).ToList();
+            var result = restaurantes.Where(x => x.Nombre_restaurante.StartsWith(name, StringComparison.OrdinalIgnoreCase)).Select(x => x.Nombre_restaurante);
+            return Json(result);
+        }
+        public IActionResult _ShowRestauranteByName(string name)
+        {
+            Restaurante restaurante = this.repo.GetRestauranteByName(name);
+            return PartialView("_ShowRestauranteByName", restaurante);
+        }
+
         /////////////////////////////////////////////////////////////////////////////
 
 

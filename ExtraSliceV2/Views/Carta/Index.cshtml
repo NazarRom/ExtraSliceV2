@@ -82,7 +82,7 @@
 
     <div class="precios">
         <h1>Rango de precios</h1>
-        <input type="range" id="range-input" min="0" max="30" step="1" value="0">
+        <input type="range" id="range-input" min="3" max="30" step="1" value="0">
         <span id="range-value">0</span>
     </div>
 
@@ -106,8 +106,8 @@
     </div>
 
     <div class="search-container">
-        <form action="#">
-            <input type="text" placeholder="Buscar...">
+        <form >
+            <input type="text" id="searchBar" placeholder="Buscar...">
             <button type="submit">Buscar</button>
         </form>
     </div>
@@ -144,19 +144,38 @@
             $("#range-input").change(function () {
                 var dinero = $(this).val();
                 console.log(dinero);
-                if (dinero <= 2 )
-                {
+                if (dinero <= 2) {
                     alert("No hay Restaurantes");
                     var request = "/Carta/_RestaurantesPartial";
                     $("#rest").load(request);
+
                 }
                 {
                     var request = "/Carta/_RestaurantesByDinero?dinero=" + dinero;
                     $("#rest").load(request);
                 }
-                
-            });
 
+            });
+            $(function () {
+                $('#searchBar').autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '/Carta/_RestauranteByName',
+                            data: { name: request.term },
+                            success: function (data) {
+                                response(data);
+                            }
+                        });
+                    },
+                    minLength: 1,
+                    select: function (event, ui) {
+                        // Do something when a result is selected
+                        console.log(ui.item.value)
+                        var request = "/Carta/_ShowRestauranteByName?name=" + encodeURIComponent(ui.item.value) ;
+                        $("#rest").load(request);
+                    }
+                });
+            });
 
         })
     </script>

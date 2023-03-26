@@ -210,5 +210,10 @@ namespace ExtraSliceV2.Repositories
             var consulta = this.context.Restaurantes.FromSqlRaw(sql, pamdinero);
             return consulta.ToList();
         }
+
+        public Restaurante GetRestauranteByName(string name)
+        {
+            return this.context.Restaurantes.FirstOrDefault(z => z.Nombre_restaurante == name);
+        }
     }
 }
