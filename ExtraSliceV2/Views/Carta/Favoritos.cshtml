@@ -11,15 +11,18 @@
             total += pro.Precio;
         }
     }
-
-
 }
+@if (Context.Session.GetObject<List<int>>("FAVORITOS") == null)
+{
+    <h1 style="text-align:center;font-family: Raleway;">No hay Favoritos</h1>
+}
+
+@if(Model != null)
+{
+    
 
 <div class="shopping-cart">
     <!-- Title -->
-    <div class="title">
-        Favoritos
-    </div>
     @foreach (Producto pro in Model)
     {
         <div class="item">
@@ -48,3 +51,4 @@
    
    
 </div>
+}

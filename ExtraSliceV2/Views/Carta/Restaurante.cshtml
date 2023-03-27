@@ -53,7 +53,8 @@
                     {
                         @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
                         @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir al carrito</a>*@
-                        <button data-restaurante-id="@pro.IdRestaurante" data-is-idproducto="@pro.IdProducto" onclick="addItem()" class="add-shop">Añadir a la cesta</button>
+                       <button data-restaurante-id="@pro.IdRestaurante" data-is-idproducto="@pro.IdProducto" onclick="addItem()" class="add-shop my-button but">Añadir a la cesta</button>
+                        <img src="~/images/si.png" class="my-image" style="width:40px; height: 40px;display:none" />
                     }
 
                 }
@@ -86,6 +87,7 @@
         $(document).ready(function () {
 
             $(".my-button").click(function () {
+                console.log("puta")
                 $(this).hide();
                 $(this).next(".my-image").show();
             });

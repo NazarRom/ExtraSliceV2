@@ -50,11 +50,11 @@ input {
     background: none;
     outline: none;
     resize: none;
-    border: 7px,7px,7px,7px;
+    border: 0;
+    border-radius: 7px;
     font-family: 'Montserrat', sans-serif;
     border: 2px solid #bebed2;
     transition: all .3s;
-    
 }
 
 .form p:before {
@@ -68,18 +68,19 @@ input {
     transition: all .3s;
 }
 
-button {
+.bet {
     padding: 8px 12px;
     margin: 8px 0 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: Raleway;
     border: 2px solid #78788c;
+    border-radius:2px;
     background: 0;
     color: #5a5a6e;
     cursor: pointer;
     transition: all .3s;
 }
 
-    button:hover {
+    .bet:hover {
         background: #78788c;
         color: #fff;
     }
@@ -188,7 +189,8 @@ button {
     transition: all 0.5s;
     -webkit-transition-timing-function: cubic-bezier(0.5, 1.65, 0.37, 0.66);
     transition-timing-function: cubic-bezier(0.5, 1.65, 0.37, 0.66);
-    text-decoration:none;
+    text-decoration: none;
+    border-radius: 7px;
 }
 
 .movebtnre {
