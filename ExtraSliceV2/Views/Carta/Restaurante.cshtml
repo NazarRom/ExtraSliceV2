@@ -30,8 +30,8 @@
         {
             <div class="alimento">
                 <h2>@pro.Nombre_producto</h2>
-                <p>@pro.Descripcion</p>
-                <p>@pro.Precio €</p>
+                <h3>@pro.Descripcion</h3>
+                <h2>@pro.Precio €</h2>
 
                 @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>*@
                 <button class="add-to-favorites" data-restaurante-id="@pro.IdRestaurante" data-is-favorite="@pro.IdProducto"></button>
