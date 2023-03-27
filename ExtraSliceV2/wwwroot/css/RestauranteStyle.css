@@ -8,7 +8,7 @@
 
     .fondoRestaurante img {
         height: 25rem;
-        width: 45rem;
+        width: 60rem;
         border: 1px solid #ccc;
         border-radius: 7px 7px 7px 7px;
         box-shadow: 7px 7px 15px #592A08;
@@ -16,8 +16,7 @@
 
 .datosRestaurante {
     height: 25rem;
-    width: 45rem;
-    background-color: aquamarine;
+    width: 30rem;
     display: flex;
     justify-content: space-evenly;
     align-items: start;
@@ -26,14 +25,19 @@
     box-shadow: 7px 7px 15px #592A08;
 }
 .restaurante {
-    height:13rem;
-    width: 40%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    background-color:violet;
-    text-align:center;
-    padding-top:9%;
- 
+    height: 13rem;
+    width: 100%;
+    
+    text-align: center;
+    padding-top: 9%;
+    font-family: Raleway;
+    display:flex;
+    flex-direction:column;
 }
+.restaurante h1{
+    font-size:40px;
+}
+
 
 .menu {
     margin-top: 20px;
@@ -46,18 +50,23 @@
     padding: 10px;
 }
 .alimento {
+    font-family: Raleway;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 20rem;
-    height: 10rem;
+    height: 15rem;
     /*background-color: green;*/
     margin-bottom: 10px;
     text-align: center;
     border: 1px solid #ccc;
-    border-radius:7px 7px 7px 7px;
+    border-radius: 7px 7px 7px 7px;
     box-shadow: 7px 7px 15px #592A08;
 }
+    .alimento a {
+        color: black;
+        text-decoration: none;
+    }
 
 
 .add-to-favorites {
@@ -81,4 +90,20 @@
 
     .add-to-favorites.favorited svg {
         fill: #ffc107;
+    }
+
+
+.but {
+    background: white;
+    border: solid 2px black;
+    padding: .375em 1.125em;
+    font-size: 1rem;
+    border-radius:10px;
+}
+
+
+    .but:hover {
+        background: black;
+        color: white;
+        border-color: white;
     }

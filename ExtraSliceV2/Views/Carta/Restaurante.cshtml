@@ -9,10 +9,7 @@
     List<Producto> favoritos = memoryCache.Get<List<Producto>>("FAVORITOS");
 }
 
-@if (favoritos != null)
-{
-    <h1>idsProductos favoritos Cache: @favoritos.Count</h1>
-}
+
 
 @if (Model != null)
 {
@@ -21,17 +18,13 @@
         <div class="datosRestaurante">
             <section class="restaurante">
                 <h1>@Model.Restaurante.Nombre_restaurante</h1>
-                <span>@Model.Restaurante.Id_categoria</span>
-                <span>@Model.Restaurante.Direccion</span>
-                <span>@Model.Restaurante.Telefono</span>
+                <h2>@Model.Restaurante.Direccion</h2>
+                <h3>Telefono: @Model.Restaurante.Telefono</h3>
             </section>
         </div>
     </div>
 
-    @if (idsProductos != null)
-    {
-        <h1>idsProductos en session: @idsProductos.Count</h1>
-    }
+
     <div id="menu" class="menu">
         @foreach (Producto pro in Model.Productos)
         {
@@ -40,31 +33,27 @@
                 <p>@pro.Descripcion</p>
                 <p>@pro.Precio €</p>
 
-                <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>
+                @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idfavorito="@pro.IdProducto">Añadir a Favoritos</a>*@
                 <button class="add-to-favorites" data-restaurante-id="@pro.IdRestaurante" data-is-favorite="@pro.IdProducto"></button>
 
-                @*<a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto" asp-route-cantidad="3">Añadir cantidad</a>*@
-                @* <div>
-        <button onclick="disminuirInput(@pro.IdProducto)"id="disminuir_@pro.IdProducto">-</button>
-        <input id="valor_@pro.IdProducto" value="0"/>
-        <button onclick="aumentarInput(@pro.IdProducto)" id="incrementar_@pro.IdProducto">+</button>
-        </div>*@
                 @if (idsProductos == null)
                 {
                     @* <button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
-                    <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
-
+                    @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir al carrito</a>*@
+                    <button data-restaurante-id="@pro.IdRestaurante" data-is-idproducto="@pro.IdProducto" onclick="addItem()" class="add-shop my-button but">Añadir a la cesta</button>
+                    <img src="~/images/si.png" class="my-image" style="width:40px; height: 40px;display:none" />
                 }
                 else
                 {
                     if (idsProductos.Contains(pro.IdProducto))
                     {
-                        <img src="https://w7.pngwing.com/pngs/405/55/png-transparent-checked-logo-check-mark-green-check-angle-leaf-triangle.png" style="width:40px; height: 40px" />
+                        <img src="~/images/si.png" style="width:40px; height: 40px" />
                     }
                     else
                     {
                         @*<button class="miBoton" value="@pro.IdProducto">Añadir Producto</button>*@
-                        <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir</a>
+                        @* <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="@pro.IdRestaurante" asp-route-idproducto="@pro.IdProducto">Añadir al carrito</a>*@
+                        <button data-restaurante-id="@pro.IdRestaurante" data-is-idproducto="@pro.IdProducto" onclick="addItem()" class="add-shop">Añadir a la cesta</button>
                     }
 
                 }
@@ -75,32 +64,43 @@
     </div>
 }
 @section Scripts{
-    @*    <script>
-        //$(document).ready(function () {
-            //    $(".miBoton").click(function () {
-            //        var idProd = $(this).val();
-            //        console.log(idProd)
-            //        $.get("/Carta/Restaurante", { idrestaurante: @Model.Restaurante.IdRestaurante, idproducto: idProd }, function(data) {
-            //            data.prductoss.foreach(producto => { })
-            //        } );
-            //        window.location.reload();
-            //    });
-            //});
-    </script>*@
-    <script>
-        $(document).ready(function () {
-            // Agregar el ícono de la estrella al botón
-            $(".add-to-favorites").prepend('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.8-1.64C4.74 14.21 2 10.8 2 7.5 2 4.42 4.42 2 7.5 2c2.34 0 4.47 1.43 5.5 3.63C12.03 3.43 14.16 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.31-2.74 6.71-8.2 12.21L12 21.35z"/></svg>');
 
-            // Recuperar el estado de los botones desde el almacenamiento local
-            $(".add-to-favorites").each(function () {
+    <script>
+        const cartItems = document.querySelector('.cart-items');
+
+        let count = 0;
+
+        function addItem() {
+            count++;
+            //cartItems.innerText = count;
+
+            const newItem = document.createElement('div');
+            newItem.classList.add('cart-items');
+            newItem.innerText = '';
+
+            const cart = document.querySelector('.cart');
+            cart.appendChild(newItem);
+        }
+
+
+        $(document).ready(function () {
+
+            $(".my-button").click(function () {
+                $(this).hide();
+                $(this).next(".my-image").show();
+            });
+
+            $(".add-shop").click(function () {
+                console.log("hola")
                 var button = $(this);
                 var restauranteId = button.data("restaurante-id");
-                var isFavorite = localStorage.getItem("restaurante-" + restauranteId);
-                if (isFavorite === "true") {
-                    button.addClass("favorited");
-                }
+                var isidproducto = button.data("is-idproducto");
+                $.get("/Carta/Restaurante", { idrestaurante: restauranteId, idproducto: isidproducto });
+                // Agregar o eliminar una clase CSS para cambiar el color del ícono
+
             });
+            // Agregar el ícono de la estrella al botón
+            $(".add-to-favorites").prepend('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.8-1.64C4.74 14.21 2 10.8 2 7.5 2 4.42 4.42 2 7.5 2c2.34 0 4.47 1.43 5.5 3.63C12.03 3.43 14.16 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.31-2.74 6.71-8.2 12.21L12 21.35z"/></svg>');
 
             // Agregar un controlador de eventos para el botón
             $(".add-to-favorites").click(function () {
@@ -108,52 +108,12 @@
                 var restauranteId = button.data("restaurante-id");
                 var isFavorite = button.data("is-favorite");
                 $.get("/Carta/Restaurante", { idrestaurante: restauranteId, idfavorito: isFavorite });
-
-                // Guardar el estado del botón en el almacenamiento local
-                if (button.hasClass("favorited")) {
-                    localStorage.setItem("restaurante-" + restauranteId, "true");
-                } else {
-                    localStorage.setItem("restaurante-" + restauranteId, "false");
-                }
-
                 // Agregar o eliminar una clase CSS para cambiar el color del ícono
-                button.toggleClass("favorited");
+                $(this).toggleClass("favorited");
             });
+
+
         });
 
-
-                                //$(document).ready(function () {
-                                //    var valor = 0;
-
-                                //    $(".incrementar").click(function () {
-                                //        valor++;
-
-                                //        $(".valor").text(valor);
-                                //    });
-
-                                //    $(".disminuir").click(function () {
-                                //        valor--;
-                                //        $(".valor").text(valor);
-                                //    });
-                                //});
-                                //function aumentarInput(id) {
-                                //    var idBoton = event.target.id;
-                                //    var idInput = "valor_" + id;
-                                //    var input = document.getElementById(idInput);
-                                //    console.log(input);
-                                //  input.value++;
-                                //}
-                                // function disminuirInput(id) {
-                                //    var idBoton = event.target.id;
-                                //    var idInput = "valor_" + id;
-                                //    var input = document.getElementById(idInput);
-                                //     console.log(input);
-                                //     if (input.value <= 0) {
-                                //         input.value = 0;
-                                //     } else {
-                                //         input.value--;
-                                //     }
-
-                                //}
     </script>
   }

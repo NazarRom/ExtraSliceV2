@@ -1,24 +1,49 @@
 ﻿@using System.Security.Claims;
 @{
-    string Idsession = Context.Session.GetString("Usuario");
     string IdUser = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 }
-<h1>Perfil Doctor: @Context.User.Identity.Name</h1>
-<ul class="list-group">
-    <li class="list-group-item">
-        Email: @Context.User.FindFirstValue(ClaimTypes.Email)
-    </li>
-    <li class="list-group-item">
-        Salario: @Context.User.FindFirstValue("Direccion")
-    </li>
-</ul>
-<h2>Todos los Claims</h2>
-<ul>
-    @foreach (Claim claim in Context.User.Claims)
-    {
-            <li>
-            @claim.Type: <b>@claim.Value</b>
-            </li>
-    }
-</ul>
-<h2>ID Usuario session = @IdUser</h2>
+
+
+
+<form class="form">
+    <h2>Perfil de Usuario</h2>
+    <div class="form-group">
+        <label for="email">Nombre:</label>
+        <div class="relative">
+            <input class="form-control" id="name" type="text" autocomplete="" value="@Context.User.Identity.Name" placeholder="@Context.User.Identity.Name">
+            <i class="fa fa-user"></i>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <div class="relative">
+            <input class="form-control" type="email" required="" value=" @Context.User.FindFirstValue(ClaimTypes.Email)" placeholder=" @Context.User.FindFirstValue(ClaimTypes.Email)">
+            <i class="fa fa-envelope"></i>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Teléfono:</label>
+        <div class="relative">
+            <input class="form-control" type="text" maxlength="10" value=" @Context.User.FindFirstValue(ClaimTypes.Email)" placeholder=" @Context.User.FindFirstValue(ClaimTypes.Email)">
+            <i class="fa fa-phone"></i>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Dirección:</label>
+        <div class="relative">
+            <input class="form-control" type="url" pattern="https?://.+" required="" value="@Context.User.FindFirstValue("Direccion")" placeholder="@Context.User.FindFirstValue("Direccion")">
+            <i class="fa fa-building"></i>
+        </div>
+    </div>
+    <div class="tright">
+        <a asp-controller="Manage" class="movebtn movebtnre" asp-action="LogOut" class="but">
+            Log Out
+            <span>@Context.User.Identity.Name</span>
+        </a>
+    </div>
+</form>
+
+<div class="thanks" style="display: none;">
+    <h4>Thank you!</h4>
+    <p><small>Your message has been successfully sent.</small></p>
+</div>

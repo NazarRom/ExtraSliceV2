@@ -29,24 +29,18 @@ nav {
     width: 100%;
     display: inline-block;
     left: 50%;
-    background-color:red;
+    
 }
 
 /* Estilos generales para el navbar */
 .navbar {
     width: 100%;
-    /* display: flex;
-    justify-content: space-around;
-    align-items: center;
-    justify-content: center;*/
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
     /*background-color: lightsalmon;*/
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 9px 9px 9px 9px;
-    background-color:blue;
-
 }
 
 /* Estilos para el logo */
@@ -54,7 +48,6 @@ nav {
     width: 30%;
     /*background-color: crimson;*/
     text-align: center;
-    grid-column: 1 / 2;
 }
 
     .logo a {
@@ -72,9 +65,8 @@ nav {
 /* Estilos para el botón de inicio de sesión */
 
 .logIn {
-    width: 100%;
+    width: 70%;
     /*background-color: chocolate;*/
-    grid-column: 3 / 4;
    display: flex;
     align-items: center;
     justify-content: center;
@@ -397,5 +389,52 @@ nav {
 }
 
 
+.cart-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
 
+.cart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cart-container .cart-items {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    animation: cart-bounce 0.5s ease-in-out;
+}
+
+@keyframes cart-bounce {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+                
 

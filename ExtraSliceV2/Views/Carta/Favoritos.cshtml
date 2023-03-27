@@ -1,9 +1,50 @@
 ﻿@model List<Producto>
+@{
 
-@foreach (Producto prod in Model)
-{
-    <ul>
-        <li>@prod.Nombre_producto</li>
-        <li><a asp-controller="Carta" asp-action="Favoritos" asp-route-ideliminar="@prod.IdProducto">Borrar</a></li>
-    </ul>
+    List<int> idsProductos = Context.Session.GetObject<List<int>>("IdProductos");
+
+    decimal total = 0;
+    @if (Model != null)
+    {
+        foreach (Producto pro in Model)
+        {
+            total += pro.Precio;
+        }
+    }
+
+
 }
+
+<div class="shopping-cart">
+    <!-- Title -->
+    <div class="title">
+        Favoritos
+    </div>
+    @foreach (Producto pro in Model)
+    {
+        <div class="item">
+            <div class="buttons">
+                <span class="delete-btn"></span>
+                <span class="like-btn"></span>
+            </div>
+            <div class="description">
+                <label>@pro.Nombre_producto</label>
+                <input class="form-control" type="hidden" name="idproducto" value="@pro.IdProducto">
+
+
+            </div>
+
+            <div class="description">
+                <label>@pro.Precio</label>
+                <input class="form-control" type="hidden" name="precio" value="@pro.Precio" />
+            </div>
+
+
+           
+            <a asp-controller="Carta" asp-action="CarritoProductos" asp-route-ideliminar="@pro.IdProducto" class="delete-btn"><img src="~/images/remove.png" /></a>
+
+        </div>
+    }
+   
+   
+</div>

@@ -230,7 +230,7 @@ namespace ExtraSliceV2.Controllers
         public async Task<IActionResult> Register(Usuario usuario)
         {
             await this.repo.RegisterUser(usuario.Nombre_cliente, usuario.Direccion, usuario.Telefono, usuario.Email, usuario.Password);
-            return View();
+            return RedirectToAction("Index");
         }
 
 
