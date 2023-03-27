@@ -7,7 +7,6 @@
 
         <br />
     }
-
 </div>
 <div>
     <section class="carousel">
@@ -15,13 +14,13 @@
 
 
 
-            <a asp-controller="Carta" asp-action="Restaurante" class="carousel--item">
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="56" class="carousel--item">
                 <img class="carousel--item__img"
-                     src="https://images.pexels.com/photos/1200450/pexels-photo-1200450.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                     src="~/images/promo-burger.jpg"
                      alt="item" />
 
                 <div class="carousel--item__details">
-                    <div>
+                   @* <div>
                         <img src="../src/img/carousel--play.svg" alt="icon play" />
                         <img src="../src/img/carousel--plus.svg" alt="icon add" />
                     </div>
@@ -29,20 +28,20 @@
                     <p class="carousel--item__details--title">Titulo provisional</p>
                     <p class="carousel--item__details--subtitle">
                         2020 16+ 114 Minutos
-                    </p>
+                    </p>*@
                 </div>
             </a>
 
 
 
 
-            <a asp-controller="Carta" asp-action="Restaurante" class="carousel--item">
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="55" class="carousel--item">
                 <img class="carousel--item__img"
-                     src="https://images.pexels.com/photos/1200450/pexels-photo-1200450.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                     src="~/images/promo-goiko.jpg"
                      alt="item" />
 
                 <div class="carousel--item__details">
-                    <div>
+                    @*<div>
                         <img src="../src/img/carousel--play.svg" alt="icon play" />
                         <img src="../src/img/carousel--plus.svg" alt="icon add" />
                     </div>
@@ -50,19 +49,19 @@
                     <p class="carousel--item__details--title">Titulo provisional</p>
                     <p class="carousel--item__details--subtitle">
                         2020 16+ 114 Minutos
-                    </p>
+                    </p>*@
                 </div>
             </a>
 
 
 
-            <a asp-controller="Carta" asp-action="Restaurante" class="carousel--item">
+            <a asp-controller="Carta" asp-action="Restaurante" asp-route-idrestaurante="" class="carousel--item">
                 <img class="carousel--item__img"
-                     src="https://images.pexels.com/photos/1200450/pexels-photo-1200450.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                     src="~/images/promo-mcdonalds.jpg"
                      alt="item" />
 
-                <div class="carousel--item__details">
-                    <div>
+              <div class="carousel--item__details">
+                    @*<div>
                         <img src="../src/img/carousel--play.svg" alt="icon play" />
                         <img src="../src/img/carousel--plus.svg" alt="icon add" />
                     </div>
@@ -70,43 +69,26 @@
                     <p class="carousel--item__details--title">Titulo provisional</p>
                     <p class="carousel--item__details--subtitle">
                         2020 16+ 114 Minutos
-                    </p>
+                    </p>*@
                 </div>
             </a>
 
 
         </div>
-    </section>
 </div>
 <div class="filters">
 
     <div class="precios">
+
         <h1>Rango de precios</h1>
         <input type="range" id="range-input" min="3" max="30" step="1" value="0">
-        <span id="range-value">0</span>
+        <span id="range-value">0€</span>
     </div>
 
-    <div class="menu-filters">
-        <form method="post">
-            <h1>Ordenar</h1>
-            <label>
-                <input type="checkbox" name="filter" value="vegetarian"> Vegetariano
-            </label>
-            <label>
-                <input type="checkbox" name="filter" value="vegan"> Vegano
-            </label>
-            <label>
-                <input type="checkbox" name="filter" value="gluten-free"> Sin gluten
-            </label>
-            <label>
-                <input type="checkbox" name="filter" value="spicy"> Picante
-            </label>
-
-        </form>
-    </div>
+   
 
     <div class="search-container">
-        <form >
+        <form>
             <input type="text" id="searchBar" placeholder="Buscar...">
             <button type="submit">Buscar</button>
         </form>
@@ -125,7 +107,7 @@
         const rangeValue = document.getElementById('range-value');
 
         rangeInput.addEventListener('input', (event) => {
-            rangeValue.innerHTML = event.target.value;
+            rangeValue.innerHTML = event.target.value + ""+"€";
         });
 
         $(document).ready(function () {

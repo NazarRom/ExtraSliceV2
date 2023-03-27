@@ -23,75 +23,59 @@
 }
 @if (Model != null)
 {
-@*    <table class="table table-info">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Borrar</th>
-                <th>Cantidad</th>
 
-
-            </tr>
-        </thead>
-        <tbody>
+    <div class="shopping-cart">
+        <!-- Title -->
+        <div class="title">
+            Pedido
+        </div>
+        <form method="post">
+            <input class="form-control" type="hidden" name="idcliente" value="@IdUser" />
             @foreach (Producto pro in Model)
             {
-                <tr>
-                    <td>@pro.Nombre_producto</td>
-                    <td>@pro.Precio €</td>
-                    
-                    <td><a asp-controller="Carta" asp-action="CarritoProductos" asp-route-ideliminar="@pro.IdProducto">Borrar</a></td>
-                    <td>
-                        <div>
-                            <button onclick="disminuirInput(@pro.IdProducto)" id="disminuir_@pro.IdProducto">-</button>
-                            <input id="valor_@pro.IdProducto" value="0" />
-                            <button onclick="aumentarInput(@pro.IdProducto)" id="incrementar_@pro.IdProducto">+</button>
-                        </div>
-                    </td>
-                </tr>
+                <div class="item">
+                    <div class="buttons">
+                        <span class="delete-btn"></span>
+                        <span class="like-btn"></span>
+                    </div>
+                    <div class="description">
+                        <label>@pro.Nombre_producto</label>
+                        <input class="form-control" type="hidden" name="idproducto" value="@pro.IdProducto">
+
+
+                    </div>
+
+                    <div class="description">
+                        <label>@pro.Precio</label>
+                        <input class="form-control" type="hidden" name="precio" value="@pro.Precio" />
+                    </div>
+
+
+                    <div class="quantity">
+                        <button type="button" class="minus-btn" onclick="disminuirInput(@pro.IdProducto)" id="disminuir_@pro.IdProducto" value="@pro.Precio">-</button>
+                        <input class="form-control" id="valor_@pro.IdProducto" name="cantidad" value="1" />
+                        <button type="button" class="plus-btn" onclick="aumentarInput(@pro.IdProducto)" id="incrementar_@pro.IdProducto" value="@pro.Precio">+</button>
+                    </div>
+                    <a asp-controller="Carta" asp-action="CarritoProductos" asp-route-ideliminar="@pro.IdProducto" class="delete-btn"><img src="~/images/remove.png" /></a>
+
+                </div>
             }
-        </tbody>
-    </table>*@
+            <h1 class="total-price" id="total">@total</h1>
+            <button class="bot" type="submit">Realizar Pedido</button>
+        </form>
+    </div>
 
-    <form method="post">
-        <input class="form-control" type="text" name="idcliente" value="@IdUser" />
-        @foreach (Producto pro in Model)
-        {
-
-            <div class="mb-3">
-                <label>@pro.Nombre_producto</label>
-                <input class="form-control" type="text" name="idproducto" value="@pro.IdProducto">
-            </div>
-            <div class="mb-3">
-                <input class="form-control" type="text" name="precio" value="@pro.Precio" />
-            </div>
-            <div class="mb-3">
-                <button type="button" onclick="disminuirInput(@pro.IdProducto)" id="disminuir_@pro.IdProducto" value="@pro.Precio">-</button>
-                <input class="form-control" id="valor_@pro.IdProducto" name="cantidad" value="1" />
-                <button type="button" onclick="aumentarInput(@pro.IdProducto)" id="incrementar_@pro.IdProducto"  value="@pro.Precio">+</button>
-            </div>
-
-
-        }
-        <button type="submit">Realizar Pedido</button>
-    </form>
-
-
-    <h1 id="total">@total</h1>
-    <h2>ID Usuario session = @IdUser</h2>
 }
+
 @section Scripts{
     <script>
-        //$(document).ready(function () {
-        //    $(".BotonBorrar").click(function () {
-        //        var idProd = $(this).val();
-        //        console.log(idProd)
-        //    $.get("/Carta/CarritoProductos", { ideliminar: idProd });
-        //    window.location.reload();
-        //    });
-        //});
-      var total = parseFloat("@total".replace(/,/g, "."));
+        $(document).ready(function () {
+            $('.like-btn').on('click', function () {
+                $(this).toggleClass('is-active');
+            });
+        })
+
+        var total = parseFloat("@total".replace(/,/g, "."));
         function aumentarInput(id) {
             var idBoton = event.target.id;
             var idInput = "valor_" + id;
@@ -108,7 +92,7 @@
                 console.log(total.toFixed(2));
                 idcaja.innerText = total.toFixed(2);
             }
-           
+
 
         }
         function disminuirInput(id) {
@@ -118,7 +102,7 @@
             var input = document.getElementById(idInput);
             var precio = document.getElementById(valorPrecio).value;
             const idcaja = document.getElementById("total");
-            
+
             if (input.value <= 0) {
                 input.value = 0;
             } else {

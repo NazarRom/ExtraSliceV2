@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/carrouselCss.css" />
     <link rel="stylesheet" href="~/css/sweetalert2.min.css" />
     <link rel="stylesheet" href="~/css/jquery-ui.css" />
+    <link rel="stylesheet" href="~/css/LoginStyle.css" />
+    <link rel="stylesheet" href="~/css/CarritoCss.css" />
     @RenderSection("Style", false)
 </head>
 <body>
@@ -27,7 +29,7 @@
         </nav>      
     </header>
 
-    <div class="container" style="margin-top: 120px;">
+    <div class="container" style="margin-top: 30px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -40,7 +42,6 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/jquery-3.6.1.min.js"></script>
     <script src="~/js/sweetalert2.all.min.js"></script>
     <script src="~/js/jquery-ui.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

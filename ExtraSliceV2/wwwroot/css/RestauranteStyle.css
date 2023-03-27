@@ -60,4 +60,25 @@
 }
 
 
+.add-to-favorites {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+}
 
+    .add-to-favorites svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        fill: #999;
+        transition: fill 0.2s ease-in-out;
+    }
+
+    .add-to-favorites.favorited svg {
+        fill: #ffc107;
+    }
